@@ -11,13 +11,12 @@ class ResNet50:
         self.classes = classes
 
     @staticmethod
-    def _identity_block(X, f, filters, training=True, initializer=random_uniform):
+    def _identity_block(X, f, filters, initializer=random_uniform):
         """
         Implementation of the identity block in ResNet.
         :param X: input tensor of shape (m, n_H_prev, n_W_prev, n_C_prev)
         :param f: shape of the middle conv window for the main path
         :param filters: number of filters in conv layers in the main path
-        :param training: if it is True it behaves in training mode and otherwise it behaves in inference mode
         :param initializer: to set up the initial weights of a layer. Equals to random uniform initializer
         :return: X output of the identity block which is a tensor of shape (m, n_H, n_W, n_C)
         """
@@ -31,19 +30,19 @@ class ResNet50:
         # First component of main path
         X = Conv2D(filters=filters_1, kernel_size=1, strides=(1, 1), padding='valid',
                    kernel_initializer=initializer(seed=0))(X)
-        X = BatchNormalization(axis=3)(X, training=training)
+        X = BatchNormalization()(X)
         X = Activation('relu')(X)
 
         # Second component of main path
         X = Conv2D(filters=filters_2, kernel_size=(f, f), strides=(1, 1), padding='same',
                    kernel_initializer=initializer(seed=0))(X)
-        X = BatchNormalization(axis=3)(X, training=training)
+        X = BatchNormalization()(X)
         X = Activation('relu')(X)
 
         # Third component of main path
         X = Conv2D(filters=filters_3, kernel_size=(1, 1), strides=(1, 1), padding='valid',
                    kernel_initializer=initializer(seed=0))(X)
-        X = BatchNormalization(axis=3)(X, training=training)
+        X = BatchNormalization()(X)
 
         # Final step: Add shortcut value to main path, and pass it through a RELU activation (≈2 lines)
         X = Add()([X_shortcut, X])
@@ -52,14 +51,13 @@ class ResNet50:
         return X
 
     @staticmethod
-    def _convolutional_block(X, f, filters, stride=2, training=True, initializer=glorot_uniform):
+    def _convolutional_block(X, f, filters, stride=2, initializer=glorot_uniform):
         """
         Implementation of the convolutional block of ResNet
         :param X: input tensor of shape (m, n_H_prev, n_W_prev, n_C_prev)
         :param f: shape of the middle conv window for the main path
         :param filters: number of filters in conv layers in the main path
         :param stride: shape of stride in conv layers
-        :param training: if it is True it behaves in training mode and otherwise it behaves in inference mode
         :param initializer: o set up the initial weights of a layer. Default is Glorot uniform initializer
         :return: X output of the convolutional block which is a tensor of shape (m, n_H, n_W, n_C)
         """
@@ -74,24 +72,24 @@ class ResNet50:
         # First component of main path
         X = Conv2D(filters=filters_1, kernel_size=1, strides=(stride, stride), padding='valid',
                    kernel_initializer=initializer(seed=0))(X)
-        X = BatchNormalization(axis=3)(X, training=training)
+        X = BatchNormalization()(X)
         X = Activation('relu')(X)
 
         # Second component of main path
         X = Conv2D(filters=filters_2, kernel_size=(f, f), strides=(1, 1), padding='same',
                    kernel_initializer=initializer(seed=0))(X)
-        X = BatchNormalization(axis=3)(X, training=training)
+        X = BatchNormalization()(X)
         X = Activation('relu')(X)
 
         # Third component of main path
         X = Conv2D(filters=filters_3, kernel_size=(1, 1), strides=(1, 1), padding='valid',
                    kernel_initializer=initializer(seed=0))(X)
-        X = BatchNormalization(axis=3)(X, training=training)
+        X = BatchNormalization()(X)
 
         # Shortcut path
         X_shortcut = Conv2D(filters=filters_3, kernel_size=(1, 1), strides=(stride, stride), padding='valid',
                             kernel_initializer=initializer(seed=0))(X_shortcut)
-        X_shortcut = BatchNormalization(axis=3)(X_shortcut, training=training)
+        X_shortcut = BatchNormalization()(X_shortcut)
 
         # Add shortcut path to main path
         X = Add()([X, X_shortcut])
