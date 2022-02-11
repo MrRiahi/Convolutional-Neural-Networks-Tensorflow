@@ -1,3 +1,7 @@
 # Convolutional-Neural-Networks
-In this repository, I build different image classification CNN models from sctrach and train on different datasets. Results and codes will be updated in the future.
+In this repository, I build different image classification CNN models from scratch and train on different datasets. 
+Results and codes will be updated in the future. These models are ResNet50 and MobileNetV1. In the future, this 
+repository will be updated with other neural networks.
+
+
 
