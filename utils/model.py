@@ -1,6 +1,7 @@
 from utils.MobileNet import MobileNetV1
 from utils.config import Config as Cfg
 from utils.ResNet import ResNet50
+from utils.GoogLeNet import GoogLeNet
 
 
 def get_model():
@@ -18,6 +19,11 @@ def get_model():
         input_size = Cfg.MOBILENET_V1_INPUT_SIZE
         mobile_net_v1 = MobileNetV1(input_shape=input_size, classes=Cfg.CIFAR_10_CLASS_NUMBERS)
         model = mobile_net_v1.mobile_net_v1()
+
+    elif Cfg.MODEL_TYPE == 'GoogleNet':
+        input_size = Cfg.GOOGLE_NET_INPUT_SIZE
+        google_net = GoogLeNet(input_shape=input_size, classes=Cfg.CIFAR_10_CLASS_NUMBERS)
+        model = google_net.google_net()
 
     else:
         raise Exception('Invalid model type')
