@@ -1,0 +1,2 @@
+tensorflow==2.7.0
+scikit-image==0.19.2
