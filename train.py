@@ -9,7 +9,7 @@ from utils.model import get_model
 
 
 # Build model
-model, input_size = get_model()
+model, input_size = get_model(classes_numbers=Cfg.CIFAR_10_CLASS_NUMBERS)
 
 # Compile model
 model.compile(loss=CategoricalCrossentropy(), optimizer='adam', metrics=["accuracy"])
