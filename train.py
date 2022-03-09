@@ -2,7 +2,7 @@ from tensorflow.keras.losses import CategoricalCrossentropy
 import tensorflow as tf
 import numpy as np
 
-from utils.dataset import get_train_dataset, get_test_dataset
+from utils.dataset import get_train_dataset
 from utils.utils import UtilityFunction
 from utils.config import Config as Cfg
 from utils.model import get_model
@@ -32,14 +32,6 @@ train_dataset, validation_dataset = get_train_dataset(
     shuffle=True,
     seed=0)
 
-# Get test dataset
-test_dataset = get_test_dataset(
-    directory='./dataset/cifar-10/images/test',
-    classes=Cfg.CIFAR_10_CLASS_NAMES,
-    image_size=input_size,
-    batch_size=Cfg.BATCH_SIZE,
-    class_mode='categorical',
-    color_mode='rgb')
 
 # Use callbacks
 model_path = f'./models/cifar-10/{Cfg.MODEL_TYPE}'
