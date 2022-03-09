@@ -1,4 +1,6 @@
 import tensorflow as tf
+import numpy as np
+import os
 
 
 def get_train_dataset(directory, aug_dict, classes, image_size, batch_size=128,
@@ -68,3 +70,29 @@ def get_test_dataset(directory, classes, image_size, batch_size=128,
         batch_size=batch_size)
 
     return test_dataset
+
+
+def get_image_and_label(dataset_path):
+    """
+    This function returns images path with their labels
+    :param dataset_path:
+    :return:
+    """
+
+    folders = np.sort(os.listdir(dataset_path))
+    labels = []
+    images_path = []
+
+    for label, folder in enumerate(folders):
+        files_path = os.listdir(f'{dataset_path}/{folder}')
+
+        images_path.extend([f'{dataset_path}/{folder}/{file_path}' for file_path in files_path])
+        labels.extend(np.repeat(label, len(files_path)))
+
+    labels = tf.keras.utils.to_categorical(labels)
+
+    return images_path, labels
+
+
+
+
