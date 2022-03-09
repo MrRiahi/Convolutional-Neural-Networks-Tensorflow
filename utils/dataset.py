@@ -57,7 +57,7 @@ def get_test_dataset(directory, classes, image_size, batch_size=128,
     :return:
     """
 
-    test_datagen = tf.keras.preprocessing.image.ImageDataGenerator()
+    test_datagen = tf.keras.preprocessing.image.ImageDataGenerator(dict(rescale=1./255))
 
     test_dataset = test_datagen.flow_from_directory(
         directory=directory,
