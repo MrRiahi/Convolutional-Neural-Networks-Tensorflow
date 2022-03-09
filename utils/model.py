@@ -1,14 +1,16 @@
 from tensorflow.keras.losses import CategoricalCrossentropy
+import tensorflow as tf
 
 from utils.MobileNet import MobileNetV1, MobileNetV2
 from utils.config import Config as Cfg
 from utils.ResNet import ResNet50
-from utils.GoogleNet import GoogLeNet
+from utils.GoogLeNet import GoogLeNet
 
 
 def get_model(classes_numbers):
     """
     This function builds the model defined in config.py file
+    :param classes_numbers:
     :return:
     """
 
@@ -54,3 +56,40 @@ def get_model(classes_numbers):
         raise Exception('Invalid model type')
 
     return model, input_size
+
+
+def load_model(model_path):
+    """
+    This function loads the model in model_path
+    :param model_path:
+    :return:
+    """
+
+    if Cfg.MODEL_TYPE == 'ResNet50':
+        input_shape = Cfg.RESNET50_INPUT_SIZE
+
+        # Load model
+        model = tf.keras.models.load_model(model_path)
+
+    elif Cfg.MODEL_TYPE == 'MobileNetV1':
+        input_shape = Cfg.MOBILENET_V1_INPUT_SIZE
+
+        # Load model
+        model = tf.keras.models.load_model(model_path)
+
+    elif Cfg.MODEL_TYPE == 'MobileNetV2':
+        input_shape = Cfg.MOBILENET_V2_INPUT_SIZE
+
+        # Load model
+        model = tf.keras.models.load_model(model_path)
+
+    elif Cfg.MODEL_TYPE == 'GoogLeNet':
+        input_shape = Cfg.GOOGLE_NET_INPUT_SIZE
+
+        # Load model
+        model = tf.keras.models.load_model(model_path)
+
+    else:
+        raise Exception('Invalid model type')
+
+    return model, input_shape
