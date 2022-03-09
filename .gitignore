@@ -132,5 +132,9 @@ dmypy.json
 .pyre/
 
 # Models and dataset
+models/
+dataset/
+
+# Models and dataset
 ./models
 ./dataset
