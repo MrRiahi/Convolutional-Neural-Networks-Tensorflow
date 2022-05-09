@@ -13,7 +13,7 @@ class Config:
 
     # Train config
     BATCH_SIZE = 128
-    EPOCHS = 500
+    EPOCHS = 100
 
     # Dataset configs
     CIFAR_10_CLASS_NAMES = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog',
