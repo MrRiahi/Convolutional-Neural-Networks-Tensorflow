@@ -15,15 +15,8 @@ model, input_size = get_model(classes_numbers=Cfg.CIFAR_10_CLASS_NUMBERS)
 model.compile(loss=CategoricalCrossentropy(), optimizer='adam', metrics=["accuracy"])
 
 # Get training dataset
-data_gen_args = dict(rescale=1./255,
-                     rotation_range=0.2,
-                     vertical_flip=True,
-                     horizontal_flip=True,
-                     validation_split=0.2)
-
 train_dataset, validation_dataset = get_train_dataset(
     directory='./dataset/cifar-10/images/train',
-    aug_dict=data_gen_args,
     classes=Cfg.CIFAR_10_CLASS_NAMES,
     image_size=input_size,
     batch_size=Cfg.BATCH_SIZE,
