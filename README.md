@@ -8,6 +8,7 @@ repository will be updated with other neural networks.
 - [x] Add evaluation 
 - [ ] Add Inference
 - [ ] Convert models to tf-lite
+- [ ] Convert  models to Onnx
 - [ ] Inference with tf-lite
 
 # References
