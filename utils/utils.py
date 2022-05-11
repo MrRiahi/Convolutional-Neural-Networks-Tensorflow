@@ -39,4 +39,3 @@ class UtilityFunction:
         labels = [Cfg.CIFAR_10_CLASS_NAMES[np.argmax(prediction)] for prediction in predictions]
 
         return labels
-
