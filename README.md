@@ -37,21 +37,21 @@ Install python requirements.
 Set your model name, number of epochs, dataset details in `utils/config.py` and run the following command:
 
 ```bash
-python train.py
+(venv) python train.py
 ```
 
 ## Evaluation
 To evaluate your model, set your dataset path in `evaluate.py` and run the following command in terminal:
 
 ```bash
-python evaluate.py
+(venv) python evaluate.py
 ```
 
 ## Inference
 To infer your model, set your image directory in `predict.py` and run the following command in terminal:
 
 ```bash
-python predict.py
+(venv) python predict.py
 ```
 
 # TODO
