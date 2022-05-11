@@ -10,8 +10,9 @@ model_path = f'./models/cifar-10/{Cfg.MODEL_TYPE}'
 model, input_shape = load_model(model_path=model_path)
 
 # Get test dataset
+test_directory = './dataset/cifar-10/images/test'
 test_dataset = get_test_dataset(
-    directory='./dataset/cifar-10/images/test',
+    directory=test_directory,
     classes=Cfg.CIFAR_10_CLASS_NAMES,
     image_size=input_shape,
     batch_size=Cfg.BATCH_SIZE,
