@@ -6,7 +6,7 @@ repository will be updated with other neural networks.
 # TODO
 - [ ] Train reliable MobileNet, ResNet, and GoogleNet models
 - [x] Add evaluation 
-- [ ] Add Inference
+- [x] Add Inference
 - [ ] Convert models to tf-lite
 - [ ] Convert  models to Onnx
 - [ ] Inference with tf-lite
