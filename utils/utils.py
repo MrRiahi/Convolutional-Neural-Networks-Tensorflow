@@ -16,16 +16,17 @@ class UtilityFunction:
         return lr
 
     @staticmethod
-    def load_images(images_path):
+    def load_images(images_path, input_shape):
         """
         Load images from images_path directory.
         :param images_path: images directory
+        :param input_shape: model input shape
         """
 
         images = [cv2.cvtColor(cv2.imread(image_path), cv2.COLOR_BGR2RGB) / 255
                   for image_path in images_path]
 
-        images = [cv2.resize(image, dsize=Cfg.RESNET50_INPUT_SIZE) for image in images]
+        images = [cv2.resize(image, dsize=input_shape) for image in images]
 
         return np.array(images)
 
