@@ -32,7 +32,7 @@ def get_output_model_directory(model_directory, output_type):
     """
 
     model_name = model_directory.split('/')[-1]
-    output_model_directory = f'{"/".join(model_directory.split("/")[0:-1])}/{model_name}.{output_type}'
+    output_model_directory = f'{"/".join(model_directory.split("/")[0:-1])}/{model_name}.{output_type.lower()}'
 
     return output_model_directory
 
