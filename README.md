@@ -54,16 +54,26 @@ To infer your model, set your image directory in `predict.py` and run the follow
 (venv) python predict.py
 ```
 
+## Result
+The result of models on test dataset are reported in the following table.
+
+|             | loss_test | acc_test |
+|-------------|:---------:|:--------:|
+| ResNet50    |  0.6056   |  81.71   | 
+| MobileNetV1 |  0.5307   |  85.37   |
+| MobileNetV2 |     ?     |    ?     |
+
 # TODO
 - [x] Train ResNet50
-- [ ] Train MobileNetV1
+- [x] Train MobileNetV1
 - [ ] Train MobileNetV2
 - [ ] Train GoogleNet
 - [x] Add evaluation 
 - [x] Add Inference
-- [ ] Convert models to tf-lite
+- [x] Convert models to TFLite
 - [ ] Convert  models to Onnx
-- [ ] Inference with tf-lite
+- [x] Inference with TFLite
+- [x] Inference with Onnx
 
 # References
 * ResNet50: https://arxiv.org/pdf/1512.03385v1.pdf
