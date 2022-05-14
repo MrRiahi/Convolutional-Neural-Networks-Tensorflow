@@ -5,6 +5,7 @@ from utils.model import load_model
 
 # Define model path
 model_path = f'./models/cifar-10/{Cfg.MODEL_TYPE}'
+print(f'Load model from {model_path}')
 
 # Load model
 model, input_shape = load_model(model_path=model_path)
