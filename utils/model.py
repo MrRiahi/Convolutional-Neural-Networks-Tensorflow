@@ -3,7 +3,7 @@ from tensorflow.keras.losses import CategoricalCrossentropy
 from utils.MobileNet import MobileNetV1, MobileNetV2
 from utils.config import Config as Cfg
 from utils.ResNet import ResNet50
-from utils.GoogleNet import GoogLeNet
+from utils.GoogLeNet import GoogLeNet
 
 
 def get_model(classes_numbers):
@@ -46,9 +46,13 @@ def get_model(classes_numbers):
         model = google_net.google_net()
 
         # Compile model
-        model.compile(loss=[CategoricalCrossentropy(), CategoricalCrossentropy(), CategoricalCrossentropy()],
+        losses = {'output': CategoricalCrossentropy(), 'output_aux_1': CategoricalCrossentropy(),
+                  'output_aux_2': CategoricalCrossentropy()}
+
+        metrics = {'output': 'accuracy', 'output_aux_1': 'accuracy', 'output_aux_2': 'accuracy'}
+        model.compile(loss=losses,
                       loss_weights=[1, 0.3, 0.3], optimizer='adam',
-                      metrics=['accuracy'])
+                      metrics=metrics)
 
     else:
         raise Exception('Invalid model type')

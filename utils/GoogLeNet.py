@@ -193,7 +193,8 @@ class GoogLeNet:
         X = Dense(units=1000, activation='relu', kernel_initializer=glorot_uniform(seed=0))(X)
 
         # Layer 20
-        output = Dense(units=self.classes, activation='softmax', kernel_initializer=glorot_uniform(seed=0))(X)
+        output = Dense(units=self.classes, activation='softmax', name='output',
+                       kernel_initializer=glorot_uniform(seed=0))(X)
 
         # Create model
         model = Model(inputs=X_input, outputs=[output, X_aux_1, X_aux_2])
