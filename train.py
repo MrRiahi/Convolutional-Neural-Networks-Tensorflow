@@ -8,11 +8,8 @@ from utils.config import Config as Cfg
 from utils.model import get_model
 
 
-# Build model
+# Build and compile model
 model, input_size = get_model(classes_numbers=Cfg.CIFAR_10_CLASS_NUMBERS)
-
-# Compile model
-model.compile(loss=CategoricalCrossentropy(), optimizer='adam', metrics=["accuracy"])
 
 # Get training dataset
 train_dataset, validation_dataset = get_train_dataset(
