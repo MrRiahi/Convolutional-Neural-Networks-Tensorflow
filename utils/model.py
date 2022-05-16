@@ -1,4 +1,5 @@
 from tensorflow.keras.losses import CategoricalCrossentropy
+from tensorflow.keras.optimizers import SGD
 
 from utils.MobileNet import MobileNetV1, MobileNetV2
 from utils.config import Config as Cfg
@@ -50,9 +51,10 @@ def get_model(classes_numbers):
                   'output_aux_2': CategoricalCrossentropy()}
 
         metrics = {'output': 'accuracy', 'output_aux_1': 'accuracy', 'output_aux_2': 'accuracy'}
-        model.compile(loss=losses,
-                      loss_weights=[1, 0.3, 0.3], optimizer='adam',
-                      metrics=metrics)
+
+        sgd = SGD(learning_rate=0.1, momentum=0.9)
+
+        model.compile(loss=losses, loss_weights=[1, 0.3, 0.3], optimizer=sgd, metrics=metrics)
 
     else:
         raise Exception('Invalid model type')

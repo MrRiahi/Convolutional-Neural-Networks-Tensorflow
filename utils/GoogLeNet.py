@@ -187,7 +187,7 @@ class GoogLeNet:
         X = Flatten()(X)
 
         # Layer 18
-        X = Dropout(rate=0.4)(X)
+        X = Dropout(rate=0.7)(X)
 
         # Layer 19
         X = Dense(units=1000, activation='relu', kernel_initializer=glorot_uniform(seed=0))(X)

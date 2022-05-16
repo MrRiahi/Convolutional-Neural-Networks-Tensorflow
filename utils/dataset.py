@@ -55,6 +55,8 @@ def get_train_dataset(directory, classes, image_size, batch_size=128,
         subset='training',
         seed=seed)
 
+    # train_dataset = train_datagen.map()
+
     validation_dataset = train_datagen.flow_from_directory(
         directory=directory,
         target_size=image_size,

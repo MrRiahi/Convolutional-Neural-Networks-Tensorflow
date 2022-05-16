@@ -8,13 +8,13 @@ from utils.config import Config as Cfg
 from utils.model import get_model
 
 
-# Build model
+def generator_wrapper(train_gen):
+    for batch_x, batch_y in train_gen:
+        yield batch_x, [batch_y, batch_y, batch_y]
+
+
+# Build and compile model
 model, input_size = get_model(classes_numbers=Cfg.CIFAR_10_CLASS_NUMBERS)
-
-# Compile model
-
-
-model.compile(loss=losses, optimizer='adam', metrics=metrics)
 
 # Get training dataset
 train_dataset, validation_dataset = get_train_dataset(
@@ -43,7 +43,7 @@ learning_rate = tf.keras.callbacks.LearningRateScheduler(UtilityFunction.step_de
 callbacks = [model_checkpoint_callback, learning_rate]
 
 # Train network
-history = model.fit(train_dataset, validation_data=validation_dataset,
+history = model.fit(generator_wrapper(train_dataset), validation_data=generator_wrapper(validation_dataset),
                     epochs=Cfg.EPOCHS, callbacks=callbacks)
 
 # Save history
