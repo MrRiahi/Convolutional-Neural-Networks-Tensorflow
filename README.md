@@ -84,6 +84,12 @@ You can convert the tensorflow model to Onnx by using the following command in t
               --output models/cifar-10/ResNet50.onnx --opset 11 --verbos
 ```
 
+Afterward, you can infer the Onnx model using the following command:
+
+```bash
+(venv) python infer_onnx.py
+``` 
+
 # TODO
 - [x] Train ResNet50
 - [x] Train MobileNetV1
@@ -94,7 +100,7 @@ You can convert the tensorflow model to Onnx by using the following command in t
 - [x] Convert models to TFLite
 - [x] Convert  models to Onnx
 - [x] Inference with TFLite
-- [ ] Inference with Onnx
+- [x] Inference with Onnx
 
 # References
 * ResNet50: https://arxiv.org/pdf/1512.03385v1.pdf
