@@ -1,3 +1,4 @@
+import numpy as np
 import tensorflow as tf
 
 from utils.utils import UtilityFunction as Uf
@@ -27,4 +28,8 @@ interpreter.set_tensor(input_details[0]['index'], images)
 interpreter.invoke()
 
 output_data = interpreter.get_tensor(output_details[0]['index'])
-print(output_data)
+
+# Convert output to corresponding label
+label = Cfg.CIFAR_10_CLASS_NAMES[np.argmax(output_data[0][0])]
+
+print(f'The predicted labels is {label}')
