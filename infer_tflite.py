@@ -1,5 +1,5 @@
+import tflite_runtime.interpreter as tflite
 import numpy as np
-import tensorflow as tf
 
 from utils.utils import UtilityFunction as Uf
 from utils.config import Config as Cfg
@@ -9,7 +9,7 @@ from utils.config import Config as Cfg
 model_path = f'./models/cifar-10/{Cfg.MODEL_TYPE}.tflite'
 
 # Load TFLite model and allocate tensors
-interpreter = tf.lite.Interpreter(model_path=model_path)
+interpreter = tflite.Interpreter(model_path=model_path)
 interpreter.allocate_tensors()
 
 # Get input and output tensors
