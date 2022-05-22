@@ -63,6 +63,27 @@ The result of models on test dataset are reported in the following table.
 | MobileNetV1 |  0.5307   |  85.37   |
 | MobileNetV2 |     ?     |    ?     |
 
+## Convert to TFLite
+You can convert the tensorflow model to TFLite by using the following command:
+
+```bash
+(venv) python convert.py
+```
+
+Afterward, you can infer the TFLite model using the following command:
+
+```bash
+(venv) python infer_tflite.py
+```
+
+## Convert to Onnx
+You can convert the tensorflow model to Onnx by using the following command in terminal:
+
+```bash
+(venv) python -m tf2onnx.convert --saved-model models/cifar-10/ResNet50 \
+              --output models/cifar-10/ResNet50.onnx --opset 11 --verbos
+```
+
 # TODO
 - [x] Train ResNet50
 - [x] Train MobileNetV1
@@ -71,9 +92,9 @@ The result of models on test dataset are reported in the following table.
 - [x] Add evaluation 
 - [x] Add Inference
 - [x] Convert models to TFLite
-- [ ] Convert  models to Onnx
+- [x] Convert  models to Onnx
 - [x] Inference with TFLite
-- [x] Inference with Onnx
+- [ ] Inference with Onnx
 
 # References
 * ResNet50: https://arxiv.org/pdf/1512.03385v1.pdf
