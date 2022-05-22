@@ -4,3 +4,7 @@ numpy==1.22.0
 opencv-python==4.5.5.62
 Pillow==9.0.1
 scipy==1.8.0
+tflite-runtime==2.8.0
+onnx==1.11.0
+onnx-runtime==1.11.1
+tf2onnx==1.10.0
