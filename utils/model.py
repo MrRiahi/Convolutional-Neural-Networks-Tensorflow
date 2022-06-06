@@ -39,7 +39,7 @@ def get_model(classes_numbers):
         model = mobile_net_v2.mobile_net_v2()
 
         # Compile model
-        model.compile(loss=CategoricalCrossentropy(), optimizer='adam', metrics=['accuracy'])
+        model.compile(loss=CategoricalCrossentropy(), optimizer='sgd', metrics=['accuracy'])
 
     elif Cfg.MODEL_TYPE == 'GoogLeNet':
         # Build model

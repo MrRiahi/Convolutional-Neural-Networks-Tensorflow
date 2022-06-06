@@ -12,7 +12,7 @@ model_path = f'./models/cifar-10/{Cfg.MODEL_TYPE}.onnx'
 ort_sess = ort.InferenceSession(model_path, providers=['CPUExecutionProvider'])
 
 # Get input shape
-input_shape = ort_sess.get_inputs()[0].shape[1:3]
+input_shape = tuple(ort_sess.get_inputs()[0].shape[1:3])
 
 # Load images
 images_path = ['./samples/30.png']

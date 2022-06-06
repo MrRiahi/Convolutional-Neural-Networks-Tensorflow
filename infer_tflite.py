@@ -16,9 +16,12 @@ interpreter.allocate_tensors()
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
+# Get input shape
+input_shape = tuple(input_details[0]['shape'][1:3])
+
 # Load images
 images_path = ['./samples/30.png']
-images = Uf.load_images(images_path=images_path, input_shape=input_details[0]['shape'][1:3])
+images = Uf.load_images(images_path=images_path, input_shape=input_shape)
 
 # Convert float64 to float32
 images = images.astype('float32')

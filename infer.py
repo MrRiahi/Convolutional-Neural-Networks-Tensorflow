@@ -11,7 +11,7 @@ model, input_shape = load_model(model_path=model_path)
 
 # Load images
 images_path = ['./samples/11.png', './samples/30.png']
-images = Uf.load_images(images_path=images_path)
+images = Uf.load_images(images_path=images_path, input_shape=input_shape)
 
 # Predict
 predictions = model.predict(images)
