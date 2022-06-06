@@ -7,7 +7,7 @@ class Config:
     MOBILENET_V2_INPUT_SIZE = (224, 224)
     GOOGLE_NET_INPUT_SIZE = (224, 224)
 
-    MODEL_TYPE = 'MobileNetV1'  # 'MobileNetV1', 'MobileNetV2', 'ResNet50', 'GoogLeNet'
+    MODEL_TYPE = 'GoogLeNet'  # 'MobileNetV1', 'MobileNetV2', 'ResNet50', 'GoogLeNet'
 
     # Train config
     BATCH_SIZE = 128
