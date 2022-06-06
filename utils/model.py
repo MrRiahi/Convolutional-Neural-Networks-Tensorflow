@@ -51,9 +51,10 @@ def get_model(classes_numbers):
                                             nesterov=False)
 
         # Compile model
-        model.compile(loss=CategoricalCrossentropy(),
+        model.compile(loss=[CategoricalCrossentropy(), CategoricalCrossentropy(), CategoricalCrossentropy()],
                       optimizer=optimizer,
-                      metrics=['accuracy'])
+                      loss_weights=[1, 0.3, 0.3],
+                      metrics=['accuracy', 'accuracy', 'accuracy'])
 
     else:
         raise Exception('Invalid model type')
