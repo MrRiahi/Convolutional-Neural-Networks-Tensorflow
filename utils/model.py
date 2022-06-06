@@ -47,9 +47,12 @@ def get_model(classes_numbers):
         google_net = GoogLeNet(input_shape=input_size, classes=classes_numbers)
         model = google_net.google_net()
 
+        optimizer = tf.keras.optimizers.SGD(learning_rate=0.01, momentum=0.9,
+                                            nesterov=False)
+
         # Compile model
-        model.compile(loss=[CategoricalCrossentropy(), CategoricalCrossentropy(), CategoricalCrossentropy()],
-                      loss_weights=[1, 0.3, 0.3], optimizer='adam',
+        model.compile(loss=CategoricalCrossentropy(),
+                      optimizer=optimizer,
                       metrics=['accuracy'])
 
     else:
