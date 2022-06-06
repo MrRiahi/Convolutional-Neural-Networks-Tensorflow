@@ -158,44 +158,44 @@ class GoogLeNet:
         # First auxiliary output
         X_aux_1 = self._auxiliary_classifier(X=X, output_name='output_aux_1')
 
-        # # Inception 4b
-        # X = self._inception_block(X=X, filters=(160, 224, 64), reduced_filters=(112, 24, 64))
-        #
-        # # Inception 4c
-        # X = self._inception_block(X=X, filters=(128, 256, 64), reduced_filters=(128, 24, 64))
-        #
-        # # Inception 4d
-        # X = self._inception_block(X=X, filters=(112, 288, 64), reduced_filters=(144, 32, 64))
-        #
-        # # Second auxiliary output
-        # # X_aux_2 = self._auxiliary_classifier(X=X, output_name='output_aux_2')
-        #
-        # # Inception 4e
-        # X = self._inception_block(X=X, filters=(256, 320, 128), reduced_filters=(160, 32, 128))
-        #
-        # # Layer 14
-        # X = MaxPooling2D(pool_size=(3, 3), strides=(2, 2), padding='same')(X)
-        #
-        # # Inception 5a
-        # X = self._inception_block(X=X, filters=(256, 320, 128), reduced_filters=(160, 32, 128))
-        #
-        # # Inception 5b
-        # X = self._inception_block(X=X, filters=(384, 384, 128), reduced_filters=(192, 48, 128))
-        #
-        # # Layer 17
-        # X = AveragePooling2D(pool_size=(7, 7), strides=(1, 1), padding='valid')(X)
-        # X = Flatten()(X)
-        #
-        # # Layer 18
-        # X = Dropout(rate=0.4)(X)
-        #
-        # # Layer 19
-        # X = Dense(units=1000, activation='relu', kernel_initializer=glorot_uniform())(X)
-        #
-        # # Layer 20
-        # output = Dense(units=self.classes, activation='softmax', kernel_initializer=glorot_uniform())(X)
+        # Inception 4b
+        X = self._inception_block(X=X, filters=(160, 224, 64), reduced_filters=(112, 24, 64))
+
+        # Inception 4c
+        X = self._inception_block(X=X, filters=(128, 256, 64), reduced_filters=(128, 24, 64))
+
+        # Inception 4d
+        X = self._inception_block(X=X, filters=(112, 288, 64), reduced_filters=(144, 32, 64))
+
+        # Second auxiliary output
+        X_aux_2 = self._auxiliary_classifier(X=X, output_name='output_aux_2')
+
+        # Inception 4e
+        X = self._inception_block(X=X, filters=(256, 320, 128), reduced_filters=(160, 32, 128))
+
+        # Layer 14
+        X = MaxPooling2D(pool_size=(3, 3), strides=(2, 2), padding='same')(X)
+
+        # Inception 5a
+        X = self._inception_block(X=X, filters=(256, 320, 128), reduced_filters=(160, 32, 128))
+
+        # Inception 5b
+        X = self._inception_block(X=X, filters=(384, 384, 128), reduced_filters=(192, 48, 128))
+
+        # Layer 17
+        X = AveragePooling2D(pool_size=(7, 7), strides=(1, 1), padding='valid')(X)
+        X = Flatten()(X)
+
+        # Layer 18
+        X = Dropout(rate=0.4)(X)
+
+        # Layer 19
+        X = Dense(units=1000, activation='relu', kernel_initializer=glorot_uniform())(X)
+
+        # Layer 20
+        output = Dense(units=self.classes, activation='softmax', kernel_initializer=glorot_uniform())(X)
 
         # Create model
-        model = Model(inputs=X_input, outputs=X_aux_1)
+        model = Model(inputs=X_input, outputs=[output, X_aux_2, X_aux_1])
 
         return model
