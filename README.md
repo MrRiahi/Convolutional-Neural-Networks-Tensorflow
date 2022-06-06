@@ -61,7 +61,7 @@ The result of models on test dataset are reported in the following table.
 |-------------|:---------:|:--------:|
 | ResNet50    |  0.6056   |  81.71   | 
 | MobileNetV1 |  0.5307   |  85.37   |
-| MobileNetV2 |    Nan    |   Nan    |
+| MobileNetV2 |  0.3866   |  89.98   |
 
 ## Convert to TFLite
 You can convert the tensorflow model to TFLite by using the following command:
