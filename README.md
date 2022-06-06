@@ -93,7 +93,7 @@ Afterward, you can infer the Onnx model using the following command:
 # TODO
 - [x] Train ResNet50
 - [x] Train MobileNetV1
-- [ ] Train MobileNetV2
+- [x] Train MobileNetV2
 - [ ] Train GoogleNet
 - [x] Add evaluation 
 - [x] Add Inference
