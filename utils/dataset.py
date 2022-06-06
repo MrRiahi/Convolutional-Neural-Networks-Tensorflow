@@ -1,4 +1,8 @@
+from utils.config import Config as Cfg
+
 import tensorflow as tf
+import numpy as np
+import os
 
 
 def get_image_data_generator(rescale=1./255, rotation_range=40, vertical_flip=True, horizontal_flip=True,
@@ -93,3 +97,136 @@ def get_test_dataset(directory, classes, image_size, batch_size=128,
         batch_size=batch_size)
 
     return test_dataset
+
+
+# --------------------- GoogLNet data generator --------------------- #
+
+
+def process_image(image_path):
+    """
+    Load an image.
+    :param image_path: path of image
+    :return:
+    """
+
+    image = tf.io.read_file(filename=image_path)
+    image = tf.image.decode_png(contents=image, channels=3)
+    image = tf.image.convert_image_dtype(image=image, dtype=tf.float32)
+
+    image = tf.image.resize(images=image, size=Cfg.MOBILENET_V2_INPUT_SIZE, method='nearest')
+
+    return image
+
+
+def process_label(on_hot_label):
+    """
+    Repeat the one_hot_label 3 time for GoogLeNet network
+    :param on_hot_label: one hot encoding label
+    :return:
+    """
+
+    one_hot_3d_label = [on_hot_label, on_hot_label, on_hot_label]
+
+    return one_hot_3d_label
+
+
+def get_images_list(directory):
+    """
+    Get images in the image_directory path with their labels and put them in lists.
+    """
+
+    images_list = []
+    classes_list = []
+
+    for folder in os.listdir(directory):
+        images_path = f'{directory}/{folder}'
+
+        images = [f'{images_path}/{image_path}' for image_path in os.listdir(images_path)]
+        images_list.extend(images)
+
+        classes = [tf.one_hot(Cfg.CIFAR10_CLASS_NAME_TO_NUMBER[folder], Cfg.CIFAR_10_CLASS_NUMBERS)
+                   for _ in range(len(images))]
+        classes_list.extend(classes)
+
+    return np.array(images_list), np.array(classes_list)
+
+
+def prepare_dataset(image_list, label_list):
+    """
+    Prepare dataset from image_list and label_list
+    :param image_list: list of images
+    :param label_list: list of one hot labels
+    :return:
+    """
+    image_filenames = tf.constant(image_list)
+
+    # Train subset
+    slices_dataset = tf.data.Dataset.from_tensor_slices(image_filenames)
+    slices_labels = tf.data.Dataset.from_tensor_slices(label_list)
+
+    image_dataset = slices_dataset.map(map_func=process_image)
+    label_dataset = slices_labels.map(map_func=process_label)
+
+    x_dataset = image_dataset.shuffle(buffer_size=Cfg.BUFFER_SIZE, seed=0).\
+        batch(batch_size=Cfg.BATCH_SIZE)
+    y_dataset = label_dataset.shuffle(buffer_size=Cfg.BUFFER_SIZE, seed=0).\
+        batch(batch_size=Cfg.BATCH_SIZE)
+
+    dataset = tf.data.Dataset.zip((x_dataset, y_dataset))
+
+    return dataset
+
+
+def load_dataset():
+    """
+    This function reads the images and masks names in a list and load.
+    :return:
+    """
+
+    train_directory = f'./{Cfg.TRAIN_DATASET_PATH}'
+
+    images_list, classes_list = get_images_list(directory=train_directory)
+
+    shuffled_indices = np.random.permutation(len(images_list))
+
+    shuffled_image_list = images_list[shuffled_indices]
+    shuffled_classes_list = classes_list[shuffled_indices]
+
+    train_part = int(np.floor(Cfg.TRAIN_SUBSET * len(images_list)))
+
+    # Train part
+    train_list = shuffled_image_list[:train_part]
+    image_train_filenames = tf.constant(train_list)
+
+    classes_train_list = shuffled_classes_list[:train_part]
+
+    train_dataset = prepare_dataset(image_list=image_train_filenames, label_list=classes_train_list)
+
+    # Validation
+    val_list = shuffled_image_list[train_part:]
+    image_val_filenames = tf.constant(val_list)
+
+    classes_val_list = shuffled_classes_list[train_part:]
+
+    val_dataset = prepare_dataset(image_list=image_val_filenames, label_list=classes_val_list)
+
+    return train_dataset, val_dataset
+
+
+def get_dataset(input_size):
+
+    if Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2']:
+        train_dataset, val_dataset = get_train_dataset(
+            directory=f'../{Cfg.TRAIN_DATASET_PATH}',
+            classes=Cfg.CIFAR_10_CLASS_NAMES,
+            image_size=input_size,
+            batch_size=Cfg.BATCH_SIZE,
+            class_mode='categorical',
+            color_mode='rgb',
+            shuffle=True,
+            seed=0)
+
+    else:
+        train_dataset, val_dataset = load_dataset()
+
+    return train_dataset, val_dataset
