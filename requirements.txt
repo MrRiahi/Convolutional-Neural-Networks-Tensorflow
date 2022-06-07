@@ -7,4 +7,4 @@ scipy==1.8.0
 tflite-runtime==2.8.0
 onnx==1.11.0
 onnx-runtime==1.11.1
-tf2onnx==1.10.0
+tf2onnx==1.11.1
