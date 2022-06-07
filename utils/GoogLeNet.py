@@ -1,5 +1,5 @@
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dropout, \
-    Flatten, Dense, Input, AveragePooling2D, ZeroPadding2D, concatenate
+    Flatten, Dense, Input, AveragePooling2D, concatenate
 from tensorflow.keras.models import Model
 from tensorflow.keras.initializers import random_uniform, glorot_uniform
 
@@ -106,14 +106,14 @@ class GoogLeNet:
         X_flatten = Flatten()(X_conv)
 
         # FC layer
-        X_fc = Dense(units=1024, activation='relu', kernel_initializer=glorot_uniform())(X_flatten)
+        X_fc = Dense(units=1024, activation='relu', kernel_initializer=random_uniform())(X_flatten)
 
         # Dropout layer
         X_dropout = Dropout(rate=0.7)(X_fc)
 
         # Auxiliary output layer
         X_aux_output = Dense(units=self.classes, activation='softmax', name=output_name,
-                             kernel_initializer=glorot_uniform())(X_dropout)
+                             kernel_initializer=random_uniform())(X_dropout)
 
         return X_aux_output
 
@@ -190,12 +190,13 @@ class GoogLeNet:
         X = Dropout(rate=0.4)(X)
 
         # Layer 19
-        X = Dense(units=1000, activation='relu', kernel_initializer=glorot_uniform())(X)
+        X = Dense(units=1000, activation='relu', kernel_initializer=random_uniform())(X)
 
         # Layer 20
-        output = Dense(units=self.classes, activation='softmax', kernel_initializer=glorot_uniform())(X)
+        output = Dense(units=self.classes, activation='softmax', name='output',
+                       kernel_initializer=random_uniform())(X)
 
         # Create model
-        model = Model(inputs=X_input, outputs=[output, X_aux_2, X_aux_1])
+        model = Model(inputs=X_input, outputs=[output, X_aux_1, X_aux_2])
 
         return model
