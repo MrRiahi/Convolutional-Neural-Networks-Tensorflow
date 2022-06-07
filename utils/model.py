@@ -52,12 +52,12 @@ def get_model(classes_numbers):
 
         # Compile model
         model.compile(loss=[CategoricalCrossentropy(), CategoricalCrossentropy(), CategoricalCrossentropy()],
-                      optimizer=optimizer,
+                      optimizer='sgd',
                       loss_weights=[1, 0.3, 0.3],
                       metrics=['accuracy', 'accuracy', 'accuracy'])
 
     else:
-        raise Exception('Invalid model type')
+        raise Exception('Invalid model type!')
 
     return model, input_size
 
@@ -94,6 +94,6 @@ def load_model(model_path):
         model = tf.keras.models.load_model(model_path)
 
     else:
-        raise Exception('Invalid model type')
+        raise Exception('Invalid model type!')
 
     return model, input_shape
