@@ -94,6 +94,7 @@ Afterward, you can infer the Onnx model using the following command:
 - [x] Train ResNet50
 - [x] Train MobileNetV1
 - [x] Train MobileNetV2
+- [x] Create a data generator for GoogLeNet
 - [ ] Train GoogleNet
 - [x] Add evaluation 
 - [x] Add Inference
