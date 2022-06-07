@@ -215,7 +215,10 @@ def load_dataset():
 
 def get_dataset(input_size):
 
-    if Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2']:
+    if Cfg.MODEL_TYPE == 'GoogLeNet':
+        train_dataset, val_dataset = load_dataset()
+
+    elif Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2']:
         train_dataset, val_dataset = get_train_dataset(
             directory=f'../{Cfg.TRAIN_DATASET_PATH}',
             classes=Cfg.CIFAR_10_CLASS_NAMES,
@@ -227,6 +230,6 @@ def get_dataset(input_size):
             seed=0)
 
     else:
-        train_dataset, val_dataset = load_dataset()
+        raise Exception('Invalid model type!')
 
     return train_dataset, val_dataset
