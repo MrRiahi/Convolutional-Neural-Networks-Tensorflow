@@ -10,8 +10,8 @@ class UtilityFunction:
     @staticmethod
     def step_decay_classification(epoch):
         initial_lr = 0.1
-        drop = 0.04
-        epochs_drop = 8
+        drop = 0.95  # For GoogLeNet 0.95 else 0.5
+        epochs_drop = 4  # For GoogLeNet 4 else 100
         lr = initial_lr * math.pow(drop, math.floor((1 + epoch) / epochs_drop))
         print(f'------------learning rate:: {lr}')
         return lr
