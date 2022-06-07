@@ -99,7 +99,7 @@ def get_test_dataset(directory, classes, image_size, batch_size=128,
     return test_dataset
 
 
-# --------------------- GoogLNet data generator --------------------- #
+# --------------------- GoogLeNet data generator --------------------- #
 
 
 def process_image(image_path):
