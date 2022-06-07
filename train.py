@@ -1,4 +1,3 @@
-from tensorflow.keras.losses import CategoricalCrossentropy
 import tensorflow as tf
 import numpy as np
 
