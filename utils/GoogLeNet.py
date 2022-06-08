@@ -1,5 +1,5 @@
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dropout, \
-    Flatten, Dense, Input, AveragePooling2D, concatenate
+    Flatten, Dense, Input, AveragePooling2D, concatenate, BatchNormalization
 from tensorflow.keras.models import Model
 from tensorflow.keras.initializers import random_uniform, glorot_uniform
 
@@ -62,24 +62,30 @@ class GoogLeNet:
         # 1x1 layer
         X_1by1 = Conv2D(filters=filters_1by1, kernel_size=kernel_size_1by1, strides=(1, 1), activation='relu',
                         padding='same', kernel_initializer=initializer())(X)
+        X_1by1 = BatchNormalization()(X_1by1)
 
         # 3x3 layer
         X_reduced_3by3 = Conv2D(filters=reduced_filters_3by3, kernel_size=(1, 1), strides=(1, 1),
                                 activation='relu', padding='same', kernel_initializer=initializer())(X)
+        X_reduced_3by3 = BatchNormalization()(X_reduced_3by3)
         X_3by3 = Conv2D(filters=filters_3by3, kernel_size=kernel_size_3by3, strides=(1, 1), activation='relu',
                         padding='same', kernel_initializer=initializer())(X_reduced_3by3)
+        X_3by3 = BatchNormalization()(X_3by3)
 
         # 5x5 layer
         X_reduced_5by5 = Conv2D(filters=reduced_filters_5by5, kernel_size=(1, 1), strides=(1, 1),
                                 activation='relu', padding='same', kernel_initializer=initializer())(X)
+        X_reduced_5by5 = BatchNormalization()(X_reduced_5by5)
         X_5by5 = Conv2D(filters=filters_5by5, kernel_size=kernel_size_5by5, strides=(1, 1), activation='relu',
                         padding='same', kernel_initializer=initializer())(X_reduced_5by5)
+        X_5by5 = BatchNormalization()(X_5by5)
 
         # max pooling layer
         X_max_pooling = MaxPooling2D(pool_size=pool_size, strides=(1, 1), padding='same')(X)
         X_reduced_5by5 = Conv2D(filters=pool_projection, kernel_size=(1, 1), strides=(1, 1),
                                 activation='relu', padding='same',
                                 kernel_initializer=initializer())(X_max_pooling)
+        X_reduced_5by5 = BatchNormalization()(X_reduced_5by5)
 
         # concatenate layers
         X_concat = concatenate(inputs=[X_1by1, X_3by3, X_5by5, X_reduced_5by5])
@@ -101,6 +107,7 @@ class GoogLeNet:
         # Convolution layer for dimensionality reduction
         X_conv = Conv2D(filters=128, kernel_size=(1, 1), strides=(1, 1), padding='same', activation='relu',
                         kernel_initializer=initializer())(X_average_pool)
+        X_conv = BatchNormalization()(X_conv)
 
         # Flatten layer
         X_flatten = Flatten()(X_conv)
@@ -128,6 +135,7 @@ class GoogLeNet:
         # Layer 1
         X = Conv2D(filters=64, kernel_size=(7, 7), strides=(2, 2), padding='same',
                    kernel_initializer=random_uniform)(X_input)
+        X = BatchNormalization()(X)
 
         # Layer 2
         X = MaxPooling2D(pool_size=(3, 3), strides=(2, 2), padding='same')(X)
@@ -135,10 +143,12 @@ class GoogLeNet:
         # Layer 3
         X = Conv2D(filters=64, kernel_size=(1, 1), strides=(1, 1), padding='valid',
                    kernel_initializer=random_uniform)(X)
+        X = BatchNormalization()(X)
 
         # Layer 4
         X = Conv2D(filters=192, kernel_size=(3, 3), strides=(1, 1), padding='same',
                    kernel_initializer=random_uniform)(X)
+        X = BatchNormalization()(X)
 
         # Layer 5
         X = MaxPooling2D(pool_size=(3, 3), strides=(2, 2), padding='same')(X)
