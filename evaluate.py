@@ -5,22 +5,21 @@ from utils.model import load_model
 
 # Define model path
 model_path = f'./models/cifar-10/{Cfg.MODEL_TYPE}'
-print(f'Load model from {model_path}')
 
 # Load model
 model, input_shape = load_model(model_path=model_path)
+print(f'Model loads from {model_path}')
 
 # Get test dataset
-test_directory = './dataset/cifar-10/images/test'
-test_dataset = get_test_dataset(
-    directory=test_directory,
-    classes=Cfg.CIFAR_10_CLASS_NAMES,
-    image_size=input_shape,
-    batch_size=Cfg.BATCH_SIZE,
-    class_mode='categorical',
-    color_mode='rgb')
+test_dataset = get_test_dataset(input_shape=input_shape)
 
 # Evaluate model on test data
 eval_results = model.evaluate(test_dataset)
 
-print(eval_results)
+if Cfg.MODEL_TYPE == 'GoogLeNet':
+    print(f'{Cfg.MODEL_TYPE} loss: {round(eval_results[1], ndigits=4)}'
+          f'\n{Cfg.MODEL_TYPE} accuracy: {round(100 * eval_results[4], ndigits=2)}')
+else:
+    print(f'{Cfg.MODEL_TYPE} loss: {round(eval_results[0], ndigits=4)}'
+          f'\n{Cfg.MODEL_TYPE} accuracy: {round(100 * eval_results[1], ndigits=2)}')
+
