@@ -96,7 +96,7 @@ Afterward, you can infer the Onnx model using the following command:
 - [x] Train MobileNetV1
 - [x] Train MobileNetV2
 - [x] Create a data generator for GoogLeNet
-- [ ] Train GoogleNet
+- [x] Train GoogleNet
 - [x] Add evaluation 
 - [x] Add Inference
 - [x] Convert models to TFLite
