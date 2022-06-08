@@ -60,7 +60,7 @@ def get_model(classes_numbers):
         optimizer = SGD(learning_rate=0.1, momentum=0.9)
 
         model.compile(loss=losses,
-                      optimizer='sgd',
+                      optimizer=optimizer,
                       loss_weights=[1, 0.3, 0.3],
                       metrics=metrics)
 
