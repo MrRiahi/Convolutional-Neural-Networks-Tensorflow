@@ -7,7 +7,7 @@ class Config:
     MOBILENET_V2_INPUT_SIZE = (224, 224)
     GOOGLE_NET_INPUT_SIZE = (224, 224)
 
-    MODEL_TYPE = 'MobileNetV2'  # 'MobileNetV1', 'MobileNetV2', 'ResNet50', 'GoogLeNet'
+    MODEL_TYPE = 'GoogLeNet'  # 'MobileNetV1', 'MobileNetV2', 'ResNet50', 'GoogLeNet'
 
     # Train config
     BUFFER_SIZE = 500
@@ -18,6 +18,7 @@ class Config:
     VALIDATION_SUBSET = 1 - TRAIN_SUBSET
 
     TRAIN_DATASET_PATH = 'dataset/cifar-10/images/train'
+    TEST_DATASET_PATH = 'dataset/cifar-10/images/test'
 
     # Dataset configs
     CIFAR_10_CLASS_NAMES = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog',
