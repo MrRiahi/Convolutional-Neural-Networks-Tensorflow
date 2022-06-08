@@ -62,6 +62,7 @@ The result of models on test dataset are reported in the following table.
 | ResNet50    |  0.6056   |  81.71   | 
 | MobileNetV1 |  0.5307   |  85.37   |
 | MobileNetV2 |  0.3866   |  89.98   |
+| GoogLeNet   |  0.6908   |  81.28   |
 
 ## Convert to TFLite
 You can convert the tensorflow model to TFLite by using the following command:
@@ -107,6 +108,7 @@ Afterward, you can infer the Onnx model using the following command:
 * ResNet50: https://arxiv.org/pdf/1512.03385v1.pdf
 * MobileNetV1: https://arxiv.org/pdf/1704.04861.pdf
 * MobileNetV2: https://arxiv.org/pdf/1801.04381.pdf
+* GoogLeNet: https://arxiv.org/pdf/1409.4842.pdf
 
 
 
