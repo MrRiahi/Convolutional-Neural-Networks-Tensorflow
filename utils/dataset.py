@@ -31,8 +31,9 @@ def get_image_data_generator(rescale=1./255, rotation_range=40, vertical_flip=Tr
     return image_data_generator
 
 
-def get_train_dataset(directory, classes, image_size, batch_size=128,
-                      class_mode='binary', color_mode='grayscale', shuffle=True, seed=0):
+def get_train_dataset_with_image_data_gen(directory, classes, image_size, batch_size=128,
+                                          class_mode='binary', color_mode='grayscale', shuffle=True,
+                                          seed=0):
     """
     This function creates an object from image_dataset_from_directory for training
     :param directory:
@@ -73,8 +74,8 @@ def get_train_dataset(directory, classes, image_size, batch_size=128,
     return train_dataset, validation_dataset
 
 
-def get_test_dataset(directory, classes, image_size, batch_size=128,
-                     class_mode='binary', color_mode='grayscale'):
+def get_test_dataset_with_image_data_gen(directory, classes, image_size, batch_size=128,
+                                         class_mode='binary', color_mode='grayscale'):
     """
     This function creates an object from image_dataset_from_directory for training
     :param directory:
@@ -151,11 +152,12 @@ def get_images_list(directory):
     return np.array(images_list), np.array(classes_list)
 
 
-def prepare_dataset(image_list, label_list):
+def prepare_dataset(image_list, label_list, is_train=True):
     """
     Prepare dataset from image_list and label_list
     :param image_list: list of images
     :param label_list: list of one hot labels
+    :param is_train: a flag to specify whether using data augmentation (for train subset) or not (for val subset)
     :return:
     """
     image_filenames = tf.constant(image_list)
@@ -164,7 +166,13 @@ def prepare_dataset(image_list, label_list):
     slices_dataset = tf.data.Dataset.from_tensor_slices(image_filenames)
     slices_labels = tf.data.Dataset.from_tensor_slices(label_list)
 
-    image_dataset = slices_dataset.map(map_func=process_image)
+    if is_train:
+        image_dataset = slices_dataset.map(map_func=process_image).\
+            map(lambda image: tf.image.stateless_random_flip_left_right(image=image, seed=(2, 5))).\
+            map(lambda image: tf.image.stateless_random_flip_up_down(image=image, seed=(10, 11)))
+    else:
+        image_dataset = slices_dataset.map(map_func=process_image)
+
     label_dataset = slices_labels.map(map_func=process_label)
 
     x_dataset = image_dataset.shuffle(buffer_size=Cfg.BUFFER_SIZE, seed=0).\
@@ -177,7 +185,7 @@ def prepare_dataset(image_list, label_list):
     return dataset
 
 
-def load_dataset():
+def get_train_dataset_with_tf_dataset():
     """
     This function reads the images and masks names in a list and load.
     :return:
@@ -200,7 +208,8 @@ def load_dataset():
 
     classes_train_list = shuffled_classes_list[:train_part]
 
-    train_dataset = prepare_dataset(image_list=image_train_filenames, label_list=classes_train_list)
+    train_dataset = prepare_dataset(image_list=image_train_filenames, label_list=classes_train_list,
+                                    is_train=True)
 
     # Validation
     val_list = shuffled_image_list[train_part:]
@@ -208,21 +217,46 @@ def load_dataset():
 
     classes_val_list = shuffled_classes_list[train_part:]
 
-    val_dataset = prepare_dataset(image_list=image_val_filenames, label_list=classes_val_list)
+    val_dataset = prepare_dataset(image_list=image_val_filenames, label_list=classes_val_list,
+                                  is_train=False)
 
     return train_dataset, val_dataset
 
 
-def get_dataset(input_size):
+def get_test_dataset_with_tf_dataset():
+    """
+    This function reads the images and masks names in a list and load for test.
+    :return:
+    """
+
+    train_directory = f'./{Cfg.TEST_DATASET_PATH}'
+
+    images_list, classes_list = get_images_list(directory=train_directory)
+
+    # Test part
+    image_filenames = tf.constant(images_list)
+
+    test_dataset = prepare_dataset(image_list=image_filenames, label_list=classes_list,
+                                   is_train=False)
+
+    return test_dataset
+
+
+def get_train_dataset(input_shape):
+    """
+    Load train dataset.
+    :param input_shape: model input shape
+    :return:
+    """
 
     if Cfg.MODEL_TYPE == 'GoogLeNet':
-        train_dataset, val_dataset = load_dataset()
+        train_dataset, val_dataset = get_train_dataset_with_tf_dataset()
 
     elif Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2']:
-        train_dataset, val_dataset = get_train_dataset(
-            directory=f'../{Cfg.TRAIN_DATASET_PATH}',
+        train_dataset, val_dataset = get_train_dataset_with_image_data_gen(
+            directory=f'./{Cfg.TRAIN_DATASET_PATH}',
             classes=Cfg.CIFAR_10_CLASS_NAMES,
-            image_size=input_size,
+            image_size=input_shape,
             batch_size=Cfg.BATCH_SIZE,
             class_mode='categorical',
             color_mode='rgb',
@@ -233,3 +267,28 @@ def get_dataset(input_size):
         raise Exception('Invalid model type!')
 
     return train_dataset, val_dataset
+
+
+def get_test_dataset(input_shape):
+    """
+    Load test dataset.
+    :param input_shape: model input shape
+    :return:
+    """
+
+    if Cfg.MODEL_TYPE == 'GoogLeNet':
+        test_dataset = get_test_dataset_with_tf_dataset()
+
+    elif Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2']:
+        test_dataset = get_test_dataset_with_image_data_gen(
+            directory=f'./{Cfg.TEST_DATASET_PATH}',
+            classes=Cfg.CIFAR_10_CLASS_NAMES,
+            image_size=input_shape,
+            batch_size=Cfg.BATCH_SIZE,
+            class_mode='categorical',
+            color_mode='rgb')
+
+    else:
+        raise Exception('Invalid model type!')
+
+    return test_dataset
