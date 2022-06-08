@@ -1,17 +1,17 @@
 import tensorflow as tf
 import numpy as np
 
-from utils.dataset import get_dataset
+from utils.dataset import get_train_dataset
 from utils.utils import UtilityFunction
 from utils.config import Config as Cfg
 from utils.model import get_model
 
 
 # Build and compile model
-model, input_size = get_model(classes_numbers=Cfg.CIFAR_10_CLASS_NUMBERS)
+model, input_shape = get_model(classes_numbers=Cfg.CIFAR_10_CLASS_NUMBERS)
 
 # Get train and val datasets
-train_dataset, val_dataset = get_dataset(input_size=input_size)
+train_dataset, val_dataset = get_train_dataset(input_shape=input_shape)
 
 # Use callbacks
 model_path = f'./models/cifar-10/{Cfg.MODEL_TYPE}'
