@@ -1,7 +1,11 @@
 # Convolutional-Neural-Networks
 In this repository, I build different image classification CNN models from scratch in Tensorflow. 
-Results and codes will be updated in the future. These models are ResNet50, MobileNetV1, MobileNetV2, and GoogLeNet. In the future, this 
-repository will be updated with other convolutional neural networks.
+Results and codes will be updated in the future. The implemented models are:
+* ResNet50
+* MobileNetV1
+* MobileNetV2
+* GoogLeNet. 
+In the future, this repository will be updated with other convolutional neural networks.
 
 ## Install
 
