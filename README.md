@@ -108,6 +108,11 @@ Afterward, you can infer the Onnx model using the following command:
 - [x] Convert  models to Onnx
 - [x] Inference with TFLite
 - [x] Inference with Onnx
+- [ ] Implement and train Xception
+- [ ] Implement and train VGG16
+- [ ] Implement and train Inception-V2
+- [ ] Implement and train Inception-V3
+- [_] Implement and train ResNeXt-50
 
 # References
 * ResNet50: https://arxiv.org/pdf/1512.03385v1.pdf
