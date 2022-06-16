@@ -4,7 +4,8 @@ Results and codes will be updated in the future. The implemented models are:
 * ResNet50
 * MobileNetV1
 * MobileNetV2
-* GoogLeNet. 
+* GoogLeNet
+
 In the future, this repository will be updated with other convolutional neural networks.
 
 ## Install
