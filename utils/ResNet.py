@@ -5,6 +5,9 @@ from tensorflow.keras.initializers import random_uniform, glorot_uniform
 
 
 class ResNet50:
+    """
+    Implementation of ResNet50 network.
+    """
 
     def __init__(self, input_shape, classes):
         self.input_shape = input_shape
