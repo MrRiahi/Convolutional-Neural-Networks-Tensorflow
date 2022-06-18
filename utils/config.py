@@ -6,13 +6,17 @@ class Config:
     MOBILENET_V1_INPUT_SIZE = (224, 224)
     MOBILENET_V2_INPUT_SIZE = (224, 224)
     GOOGLE_NET_INPUT_SIZE = (224, 224)
+    VGG16_NET_INPUT_SIZE = (224, 224)
+    VGG13_NET_INPUT_SIZE = (224, 224)
+    VGG11_NET_INPUT_SIZE = (224, 224)
 
-    MODEL_TYPE = 'GoogLeNet'  # 'MobileNetV1', 'MobileNetV2', 'ResNet50', 'GoogLeNet'
+    # 'MobileNetV1', 'MobileNetV2', 'ResNet50', 'GoogLeNet', 'VGG16', 'VGG13', 'VGG11'
+    MODEL_TYPE = 'VGG11'
 
     # Train config
     BUFFER_SIZE = 500
     BATCH_SIZE = 128
-    EPOCHS = 500
+    EPOCHS = 10
 
     TRAIN_SUBSET = 0.8
     VALIDATION_SUBSET = 1 - TRAIN_SUBSET
