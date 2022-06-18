@@ -1,7 +1,12 @@
 # Convolutional-Neural-Networks
 In this repository, I build different image classification CNN models from scratch in Tensorflow. 
-Results and codes will be updated in the future. These models are ResNet50, MobileNetV1, and MobileNetV2. In the future, this 
-repository will be updated with other convolutional neural networks.
+Results and codes will be updated in the future. The implemented models are:
+* ResNet50
+* MobileNetV1
+* MobileNetV2
+* GoogLeNet
+
+In the future, this repository will be updated with other convolutional neural networks.
 
 ## Install
 
@@ -103,6 +108,13 @@ Afterward, you can infer the Onnx model using the following command:
 - [x] Convert  models to Onnx
 - [x] Inference with TFLite
 - [x] Inference with Onnx
+- [ ] Implement and train VGG16
+- [ ] Implement and train Inception-ResNet-50
+- [ ] Implement and train Inception-V2
+- [ ] Implement and train Inception-V3
+- [ ] Implement and train Inception-V3
+- [ ] Implement and train ResNeXt-50
+- [ ] Implement and train Xception
 
 # References
 * ResNet50: https://arxiv.org/pdf/1512.03385v1.pdf
