@@ -106,15 +106,15 @@ class MobileNetV2:
     This class is the implementation of the second version of MobileNet which is called MobileNetV2.
     """
 
-    def __init__(self, input_shape, class_numbers):
+    def __init__(self, input_shape, classes):
         """
         Initialization of MobileNetV2 class
         :param input_shape:
-        :param class_numbers:
+        :param classes:
         """
 
         self.input_shape = input_shape
-        self.class_numbers = class_numbers
+        self.class_numbers = classes
 
     @staticmethod
     def _get_number_of_expansion_filters(X, expansion_ratio):
