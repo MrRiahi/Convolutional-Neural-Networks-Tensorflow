@@ -5,6 +5,7 @@ Results and codes will be updated in the future. The implemented models are:
 * MobileNetV1
 * MobileNetV2
 * GoogLeNet
+* VGG16
 
 In the future, this repository will be updated with other convolutional neural networks.
 
@@ -108,7 +109,7 @@ Afterward, you can infer the Onnx model using the following command:
 - [x] Convert  models to Onnx
 - [x] Inference with TFLite
 - [x] Inference with Onnx
-- [ ] Implement and train VGG16
+- [x] Implement and train VGG16 (lack of resources to train)
 - [ ] Implement and train Inception-ResNet-50
 - [ ] Implement and train Inception-V2
 - [ ] Implement and train Inception-V3
