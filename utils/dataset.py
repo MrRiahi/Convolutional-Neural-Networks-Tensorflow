@@ -252,7 +252,7 @@ def get_train_dataset(input_shape):
     if Cfg.MODEL_TYPE == 'GoogLeNet':
         train_dataset, val_dataset = get_train_dataset_with_tf_dataset()
 
-    elif Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2']:
+    elif Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2', 'VGG16', 'VGG13', 'VGG11']:
         train_dataset, val_dataset = get_train_dataset_with_image_data_gen(
             directory=f'./{Cfg.TRAIN_DATASET_PATH}',
             classes=Cfg.CIFAR_10_CLASS_NAMES,
