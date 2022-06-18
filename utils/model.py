@@ -3,9 +3,11 @@ from tensorflow.keras.optimizers import SGD
 import tensorflow as tf
 
 from utils.MobileNet import MobileNetV1, MobileNetV2
-from utils.config import Config as Cfg
-from utils.ResNet import ResNet50
+from utils.VGG import VGG16, VGG13, VGG11
 from utils.GoogLeNet import GoogLeNet
+from utils.ResNet import ResNet50
+
+from utils.config import Config as Cfg
 
 
 def get_model(classes_numbers):
@@ -36,7 +38,7 @@ def get_model(classes_numbers):
     elif Cfg.MODEL_TYPE == 'MobileNetV2':
         # Build model
         input_size = Cfg.MOBILENET_V2_INPUT_SIZE
-        mobile_net_v2 = MobileNetV2(input_shape=input_size, class_numbers=classes_numbers)
+        mobile_net_v2 = MobileNetV2(input_shape=input_size, classes=classes_numbers)
         model = mobile_net_v2.mobile_net_v2()
 
         # Compile model
@@ -63,6 +65,33 @@ def get_model(classes_numbers):
                       optimizer=optimizer,
                       loss_weights=[1, 0.3, 0.3],
                       metrics=metrics)
+
+    elif Cfg.MODEL_TYPE == 'VGG16':
+        # Build model
+        input_size = Cfg.VGG16_NET_INPUT_SIZE
+        vgg16_net = VGG16(input_shape=input_size, classes=classes_numbers)
+        model = vgg16_net.vgg16()
+
+        # Compile model
+        model.compile(loss=CategoricalCrossentropy(), optimizer='adam', metrics=['accuracy'])
+
+    elif Cfg.MODEL_TYPE == 'VGG13':
+        # Build model
+        input_size = Cfg.VGG13_NET_INPUT_SIZE
+        vgg13_net = VGG13(input_shape=input_size, classes=classes_numbers)
+        model = vgg13_net.vgg13()
+
+        # Compile model
+        model.compile(loss=CategoricalCrossentropy(), optimizer='adam', metrics=['accuracy'])
+
+    elif Cfg.MODEL_TYPE == 'VGG11':
+        # Build model
+        input_size = Cfg.VGG11_NET_INPUT_SIZE
+        vgg11_net = VGG11(input_shape=input_size, classes=classes_numbers)
+        model = vgg11_net.vgg11()
+
+        # Compile model
+        model.compile(loss=CategoricalCrossentropy(), optimizer='adam', metrics=['accuracy'])
 
     else:
         raise Exception('Invalid model type!')
@@ -97,6 +126,24 @@ def load_model(model_path):
 
     elif Cfg.MODEL_TYPE == 'GoogLeNet':
         input_shape = Cfg.GOOGLE_NET_INPUT_SIZE
+
+        # Load model
+        model = tf.keras.models.load_model(model_path)
+
+    elif Cfg.MODEL_TYPE == 'VGG16':
+        input_shape = Cfg.VGG16_NET_INPUT_SIZE
+
+        # Load model
+        model = tf.keras.models.load_model(model_path)
+
+    elif Cfg.MODEL_TYPE == 'VGG13':
+        input_shape = Cfg.VGG13_NET_INPUT_SIZE
+
+        # Load model
+        model = tf.keras.models.load_model(model_path)
+
+    elif Cfg.MODEL_TYPE == 'VGG11':
+        input_shape = Cfg.VGG11_NET_INPUT_SIZE
 
         # Load model
         model = tf.keras.models.load_model(model_path)
