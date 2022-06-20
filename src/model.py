@@ -2,12 +2,12 @@ from tensorflow.keras.losses import CategoricalCrossentropy
 from tensorflow.keras.optimizers import SGD
 import tensorflow as tf
 
-from utils.MobileNet import MobileNetV1, MobileNetV2
-from utils.VGG import VGG16, VGG13, VGG11
-from utils.GoogLeNet import GoogLeNet
-from utils.ResNet import ResNet50
+from src.MobileNet import MobileNetV1, MobileNetV2
+from src.VGG import VGG16, VGG13, VGG11
+from src.GoogLeNet import GoogLeNet
+from src.ResNet import ResNet50
 
-from utils.config import Config as Cfg
+from src.config import Config as Cfg
 
 
 def get_model(classes_numbers):

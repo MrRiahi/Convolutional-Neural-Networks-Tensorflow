@@ -3,7 +3,7 @@ import cv2
 import pickle
 import tensorflow as tf
 
-from config import Config as Cfg
+from src.config import Config as Cfg
 
 
 def preprocess_caltech101(image, label):
