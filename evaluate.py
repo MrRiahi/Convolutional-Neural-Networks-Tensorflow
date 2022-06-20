@@ -1,6 +1,6 @@
-from utils.dataset import get_test_dataset
-from utils.config import Config as Cfg
-from utils.model import load_model
+from src.dataset import get_test_dataset
+from src.config import Config as Cfg
+from src.model import load_model
 
 
 # Define model path

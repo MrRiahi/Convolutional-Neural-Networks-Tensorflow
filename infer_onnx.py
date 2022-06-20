@@ -1,8 +1,8 @@
 import numpy as np
 import onnxruntime as ort
 
-from utils.utils import UtilityFunction as Uf
-from utils.config import Config as Cfg
+from src.utils import UtilityFunction as Uf
+from src.config import Config as Cfg
 
 
 # Define model path

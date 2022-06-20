@@ -1,8 +1,8 @@
 import tflite_runtime.interpreter as tflite
 import numpy as np
 
-from utils.utils import UtilityFunction as Uf
-from utils.config import Config as Cfg
+from src.utils import UtilityFunction as Uf
+from src.config import Config as Cfg
 
 
 # Define model path

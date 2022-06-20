@@ -1,6 +1,6 @@
-from utils.config import Config as Cfg
-from utils.model import load_model
-from utils.utils import UtilityFunction as Uf
+from src.config import Config as Cfg
+from src.model import load_model
+from src.utils import UtilityFunction as Uf
 
 
 # Define model path

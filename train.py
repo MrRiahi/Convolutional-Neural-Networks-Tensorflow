@@ -1,10 +1,10 @@
 import tensorflow as tf
 import numpy as np
 
-from utils.dataset import get_train_dataset
-from utils.utils import UtilityFunction
-from utils.config import Config as Cfg
-from utils.model import get_model
+from src.dataset import get_train_dataset
+from src.utils import UtilityFunction
+from src.config import Config as Cfg
+from src.model import get_model
 
 
 # Build and compile model

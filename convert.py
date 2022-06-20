@@ -1,5 +1,5 @@
-from utils.model_conversion import convert_model
-from utils.config import Config as Cfg
+from src.model_conversion import convert_model
+from src.config import Config as Cfg
 
 
 # Define model path
