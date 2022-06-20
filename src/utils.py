@@ -2,7 +2,7 @@ import numpy as np
 import math
 import cv2
 
-from utils.config import Config as Cfg
+from src.config import Config as Cfg
 
 
 class UtilityFunction:

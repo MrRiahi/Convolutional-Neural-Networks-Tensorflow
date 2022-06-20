@@ -50,9 +50,6 @@ def get_model(classes_numbers):
         google_net = GoogLeNet(input_shape=input_size, classes=classes_numbers)
         model = google_net.google_net()
 
-        optimizer = tf.keras.optimizers.SGD(learning_rate=0.01, momentum=0.9,
-                                            nesterov=False)
-
         # Compile model
         losses = {'output': CategoricalCrossentropy(), 'output_aux_1': CategoricalCrossentropy(),
                   'output_aux_2': CategoricalCrossentropy()}
@@ -73,7 +70,9 @@ def get_model(classes_numbers):
         model = vgg16_net.vgg16()
 
         # Compile model
-        model.compile(loss=CategoricalCrossentropy(), optimizer='adam', metrics=['accuracy'])
+        optimizer = SGD(learning_rate=0.1, momentum=0.9)
+
+        model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
     elif Cfg.MODEL_TYPE == 'VGG13':
         # Build model

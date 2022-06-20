@@ -1,4 +1,4 @@
-from utils.config import Config as Cfg
+from src.config import Config as Cfg
 
 import tensorflow as tf
 import numpy as np
@@ -279,7 +279,7 @@ def get_test_dataset(input_shape):
     if Cfg.MODEL_TYPE == 'GoogLeNet':
         test_dataset = get_test_dataset_with_tf_dataset()
 
-    elif Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2']:
+    elif Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2', 'VGG16', 'VGG13', 'VGG11']:
         test_dataset = get_test_dataset_with_image_data_gen(
             directory=f'./{Cfg.TEST_DATASET_PATH}',
             classes=Cfg.CIFAR_10_CLASS_NAMES,

@@ -1,5 +1,5 @@
 from tensorflow.keras.layers import Conv2D, BatchNormalization, MaxPooling2D, \
-    Input, Dense, Flatten, Dropout
+    Input, Dense, Flatten, Dropout, AveragePooling2D
 from tensorflow.keras.initializers import glorot_uniform
 from tensorflow.keras.models import Model
 
@@ -75,8 +75,13 @@ class VGG16:
         # Fifth conv block
         X = self.__conv_block(X=X, number_of_filters=[512, 512, 512])
 
-        # Max pooling
-        X = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding='valid')(X)
+        # In original VGG, a max pooling was used. Because of limited resources, I use average pooling with
+        # 7x7 pool size.
+        # # Max pooling
+        # X = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding='valid')(X)
+
+        # Average pooling
+        X = AveragePooling2D(pool_size=[7, 7])(X)
 
         # FC layers
         X = Flatten()(X)
@@ -166,8 +171,13 @@ class VGG13:
         # Fifth conv block
         X = self.__conv_block(X=X, number_of_filters=[512, 512])
 
-        # Max pooling
-        X = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding='valid')(X)
+        # In original VGG, a max pooling was used. Because of limited resources, I use average pooling with
+        # 7x7 pool size.
+        # # Max pooling
+        # X = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding='valid')(X)
+
+        # Average pooling
+        X = AveragePooling2D(pool_size=[7, 7])(X)
 
         # FC layers
         X = Flatten()(X)
@@ -255,8 +265,13 @@ class VGG11:
         # Fifth conv block
         X = self.__conv_block(X=X, number_of_filters=[512, 512])
 
-        # Max pooling
-        X = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding='valid')(X)
+        # In original VGG, a max pooling was used. Because of limited resources, I use average pooling with
+        # 7x7 pool size.
+        # # Max pooling
+        # X = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding='valid')(X)
+
+        # Average pooling
+        X = AveragePooling2D(pool_size=[7, 7])(X)
 
         # FC layers
         X = Flatten()(X)
