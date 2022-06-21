@@ -14,7 +14,7 @@ class ResNet50:
         self.classes = classes
 
     @staticmethod
-    def _identity_block(X, f, filters, initializer=random_uniform):
+    def __identity_block(X, f, filters, initializer=random_uniform):
         """
         Implementation of the identity block in ResNet.
         :param X: input tensor of shape (m, n_H_prev, n_W_prev, n_C_prev)
@@ -31,7 +31,7 @@ class ResNet50:
         X_shortcut = X
 
         # First component of main path
-        X = Conv2D(filters=filters_1, kernel_size=1, strides=(1, 1), padding='valid',
+        X = Conv2D(filters=filters_1, kernel_size=(1, 1), strides=(1, 1), padding='valid',
                    kernel_initializer=initializer(seed=0))(X)
         X = BatchNormalization()(X)
         X = Activation('relu')(X)
@@ -54,7 +54,7 @@ class ResNet50:
         return X
 
     @staticmethod
-    def _convolutional_block(X, f, filters, stride=2, initializer=glorot_uniform):
+    def __convolutional_block(X, f, filters, stride=2, initializer=glorot_uniform):
         """
         Implementation of the convolutional block of ResNet
         :param X: input tensor of shape (m, n_H_prev, n_W_prev, n_C_prev)
@@ -73,7 +73,7 @@ class ResNet50:
 
         # Main path
         # First component of main path
-        X = Conv2D(filters=filters_1, kernel_size=1, strides=(stride, stride), padding='valid',
+        X = Conv2D(filters=filters_1, kernel_size=(1, 1), strides=(stride, stride), padding='valid',
                    kernel_initializer=initializer(seed=0))(X)
         X = BatchNormalization()(X)
         X = Activation('relu')(X)
@@ -119,28 +119,28 @@ class ResNet50:
         X = MaxPooling2D((3, 3), strides=(2, 2))(X)
 
         # Stage 2
-        X = self._convolutional_block(X, f=3, filters=[64, 64, 256], stride=1)
-        X = self._identity_block(X, 3, [64, 64, 256])
-        X = self._identity_block(X, 3, [64, 64, 256])
+        X = self.__convolutional_block(X, f=3, filters=[64, 64, 256], stride=1)
+        X = self.__identity_block(X, 3, [64, 64, 256])
+        X = self.__identity_block(X, 3, [64, 64, 256])
 
         # Stage 3
-        X = self._convolutional_block(X=X, f=3, filters=[128, 128, 512], stride=2)
-        X = self._identity_block(X=X, f=3, filters=[128, 128, 512])
-        X = self._identity_block(X=X, f=3, filters=[128, 128, 512])
-        X = self._identity_block(X=X, f=3, filters=[128, 128, 512])
+        X = self.__convolutional_block(X=X, f=3, filters=[128, 128, 512], stride=2)
+        X = self.__identity_block(X=X, f=3, filters=[128, 128, 512])
+        X = self.__identity_block(X=X, f=3, filters=[128, 128, 512])
+        X = self.__identity_block(X=X, f=3, filters=[128, 128, 512])
 
         # Stage 4
-        X = self._convolutional_block(X=X, f=3, filters=[256, 256, 1024], stride=2)
-        X = self._identity_block(X=X, f=3, filters=[256, 256, 1024])
-        X = self._identity_block(X=X, f=3, filters=[256, 256, 1024])
-        X = self._identity_block(X=X, f=3, filters=[256, 256, 1024])
-        X = self._identity_block(X=X, f=3, filters=[256, 256, 1024])
-        X = self._identity_block(X=X, f=3, filters=[256, 256, 1024])
+        X = self.__convolutional_block(X=X, f=3, filters=[256, 256, 1024], stride=2)
+        X = self.__identity_block(X=X, f=3, filters=[256, 256, 1024])
+        X = self.__identity_block(X=X, f=3, filters=[256, 256, 1024])
+        X = self.__identity_block(X=X, f=3, filters=[256, 256, 1024])
+        X = self.__identity_block(X=X, f=3, filters=[256, 256, 1024])
+        X = self.__identity_block(X=X, f=3, filters=[256, 256, 1024])
 
         # Stage 5
-        X = self._convolutional_block(X=X, f=3, filters=[512, 512, 2048], stride=2)
-        X = self._identity_block(X=X, f=3, filters=[512, 512, 2048])
-        X = self._identity_block(X=X, f=3, filters=[512, 512, 2048])
+        X = self.__convolutional_block(X=X, f=3, filters=[512, 512, 2048], stride=2)
+        X = self.__identity_block(X=X, f=3, filters=[512, 512, 2048])
+        X = self.__identity_block(X=X, f=3, filters=[512, 512, 2048])
 
         # Average pooling
         X = AveragePooling2D()(X)
