@@ -11,8 +11,8 @@ class GoogLeNet:
         self.classes = classes
 
     @staticmethod
-    def _naive_inception_block(X, filters, kernel_size=((1, 1), (3, 3), (5, 5)), pool_size=(3, 3),
-                               initializer=random_uniform):
+    def __naive_inception_block(X, filters, kernel_size=((1, 1), (3, 3), (5, 5)), pool_size=(3, 3),
+                                initializer=random_uniform):
         """
         This method creates the naive inception block.
         :param X: input layer
@@ -42,8 +42,8 @@ class GoogLeNet:
         return X_concat
 
     @staticmethod
-    def _inception_block(X, filters, reduced_filters, kernel_size=((1, 1), (3, 3), (5, 5)), pool_size=(3, 3),
-                         initializer=random_uniform):
+    def __inception_block(X, filters, reduced_filters, kernel_size=((1, 1), (3, 3), (5, 5)), pool_size=(3, 3),
+                          initializer=random_uniform):
         """
         This method creates the inception block.
         :param X: input layer
@@ -92,7 +92,7 @@ class GoogLeNet:
 
         return X_concat
 
-    def _auxiliary_classifier(self, X, output_name, initializer=random_uniform):
+    def __auxiliary_classifier(self, X, output_name, initializer=random_uniform):
         """
         This method creates an auxiliary classifier.
         :param X: input layer
@@ -154,43 +154,43 @@ class GoogLeNet:
         X = MaxPooling2D(pool_size=(3, 3), strides=(2, 2), padding='same')(X)
 
         # Inception 3a
-        X = self._inception_block(X=X, filters=(64, 128, 32), reduced_filters=(96, 16, 32))
+        X = self.__inception_block(X=X, filters=(64, 128, 32), reduced_filters=(96, 16, 32))
 
         # Inception 3b
-        X = self._inception_block(X=X, filters=(128, 192, 96), reduced_filters=(128, 32, 64))
+        X = self.__inception_block(X=X, filters=(128, 192, 96), reduced_filters=(128, 32, 64))
 
         # Layer 8
         X = MaxPooling2D(pool_size=(3, 3), strides=(2, 2), padding='same')(X)
 
         # Inception 4a
-        X = self._inception_block(X=X, filters=(192, 208, 48), reduced_filters=(96, 16, 64))
+        X = self.__inception_block(X=X, filters=(192, 208, 48), reduced_filters=(96, 16, 64))
 
         # First auxiliary output
-        X_aux_1 = self._auxiliary_classifier(X=X, output_name='output_aux_1')
+        X_aux_1 = self.__auxiliary_classifier(X=X, output_name='output_aux_1')
 
         # Inception 4b
-        X = self._inception_block(X=X, filters=(160, 224, 64), reduced_filters=(112, 24, 64))
+        X = self.__inception_block(X=X, filters=(160, 224, 64), reduced_filters=(112, 24, 64))
 
         # Inception 4c
-        X = self._inception_block(X=X, filters=(128, 256, 64), reduced_filters=(128, 24, 64))
+        X = self.__inception_block(X=X, filters=(128, 256, 64), reduced_filters=(128, 24, 64))
 
         # Inception 4d
-        X = self._inception_block(X=X, filters=(112, 288, 64), reduced_filters=(144, 32, 64))
+        X = self.__inception_block(X=X, filters=(112, 288, 64), reduced_filters=(144, 32, 64))
 
         # Second auxiliary output
-        X_aux_2 = self._auxiliary_classifier(X=X, output_name='output_aux_2')
+        X_aux_2 = self.__auxiliary_classifier(X=X, output_name='output_aux_2')
 
         # Inception 4e
-        X = self._inception_block(X=X, filters=(256, 320, 128), reduced_filters=(160, 32, 128))
+        X = self.__inception_block(X=X, filters=(256, 320, 128), reduced_filters=(160, 32, 128))
 
         # Layer 14
         X = MaxPooling2D(pool_size=(3, 3), strides=(2, 2), padding='same')(X)
 
         # Inception 5a
-        X = self._inception_block(X=X, filters=(256, 320, 128), reduced_filters=(160, 32, 128))
+        X = self.__inception_block(X=X, filters=(256, 320, 128), reduced_filters=(160, 32, 128))
 
         # Inception 5b
-        X = self._inception_block(X=X, filters=(384, 384, 128), reduced_filters=(192, 48, 128))
+        X = self.__inception_block(X=X, filters=(384, 384, 128), reduced_filters=(192, 48, 128))
 
         # Layer 17
         X = AveragePooling2D(pool_size=(7, 7), strides=(1, 1), padding='valid')(X)
