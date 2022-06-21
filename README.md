@@ -65,10 +65,12 @@ The result of models on test dataset are reported in the following table.
 
 |             | loss_test | acc_test |
 |-------------|:---------:|:--------:|
-| ResNet50    |  0.6056   |  81.71   | 
-| MobileNetV1 |  0.5307   |  85.37   |
 | MobileNetV2 |  0.3866   |  89.98   |
+| VGG19       |  0.4811   |  84.33   | 
+| MobileNetV1 |  0.5307   |  85.37   |
+| ResNet50    |  0.6056   |  81.71   |
 | GoogLeNet   |  0.6908   |  81.28   |
+
 
 ## Convert to TFLite
 You can convert the tensorflow model to TFLite by using the following command:
@@ -109,13 +111,12 @@ Afterward, you can infer the Onnx model using the following command:
 - [x] Convert  models to Onnx
 - [x] Inference with TFLite
 - [x] Inference with Onnx
-- [x] Implement and train VGG16 (lack of resources to train)
-- [ ] Implement and train Inception-ResNet-50
+- [x] Implement and train VGG16
 - [ ] Implement and train Inception-V2
 - [ ] Implement and train Inception-V3
-- [ ] Implement and train Inception-V3
-- [ ] Implement and train ResNeXt-50
+- [ ] Implement and train Inception-ResNet-50
 - [ ] Implement and train Xception
+- [ ] Implement and train ResNeXt-50
 
 # References
 * ResNet50: https://arxiv.org/pdf/1512.03385v1.pdf
