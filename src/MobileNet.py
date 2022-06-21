@@ -11,7 +11,7 @@ class MobileNetV1:
         self.classes = classes
 
     @staticmethod
-    def _mobile_net_block(X, filters, stride, f=3, initializer=random_uniform):
+    def __mobile_net_block(X, filters, stride, f=3, initializer=random_uniform):
         """
         Implementation of the mobile_net block in MobileNetV1.
         :param X: input tensor of shape (m, n_H_prev, n_W_prev, n_C_prev)
@@ -50,43 +50,43 @@ class MobileNetV1:
                    kernel_initializer=random_uniform)(X_input)
 
         # Layer 2
-        X = self._mobile_net_block(X=X, filters=64, stride=1, f=3, initializer=random_uniform)
+        X = self.__mobile_net_block(X=X, filters=64, stride=1, f=3, initializer=random_uniform)
 
         # Layer 3
-        X = self._mobile_net_block(X=X, filters=128, stride=2, f=3, initializer=random_uniform)
+        X = self.__mobile_net_block(X=X, filters=128, stride=2, f=3, initializer=random_uniform)
 
         # Layer 4
-        X = self._mobile_net_block(X=X, filters=128, stride=1, f=3, initializer=random_uniform)
+        X = self.__mobile_net_block(X=X, filters=128, stride=1, f=3, initializer=random_uniform)
 
         # Layer 5
-        X = self._mobile_net_block(X=X, filters=256, stride=2, f=3, initializer=random_uniform)
+        X = self.__mobile_net_block(X=X, filters=256, stride=2, f=3, initializer=random_uniform)
 
         # Layer 6
-        X = self._mobile_net_block(X=X, filters=256, stride=1, f=3, initializer=random_uniform)
+        X = self.__mobile_net_block(X=X, filters=256, stride=1, f=3, initializer=random_uniform)
 
         # Layer 7
-        X = self._mobile_net_block(X=X, filters=256, stride=2, f=3, initializer=random_uniform)
+        X = self.__mobile_net_block(X=X, filters=256, stride=2, f=3, initializer=random_uniform)
 
         # Layer 8
-        X = self._mobile_net_block(X=X, filters=512, stride=1, f=3, initializer=random_uniform)
+        X = self.__mobile_net_block(X=X, filters=512, stride=1, f=3, initializer=random_uniform)
 
         # Layer 9
-        X = self._mobile_net_block(X=X, filters=512, stride=1, f=3, initializer=random_uniform)
+        X = self.__mobile_net_block(X=X, filters=512, stride=1, f=3, initializer=random_uniform)
 
         # Layer 10
-        X = self._mobile_net_block(X=X, filters=512, stride=1, f=3, initializer=random_uniform)
+        X = self.__mobile_net_block(X=X, filters=512, stride=1, f=3, initializer=random_uniform)
 
         # Layer 11
-        X = self._mobile_net_block(X=X, filters=512, stride=1, f=3, initializer=random_uniform)
+        X = self.__mobile_net_block(X=X, filters=512, stride=1, f=3, initializer=random_uniform)
 
         # Layer 12
-        X = self._mobile_net_block(X=X, filters=512, stride=1, f=3, initializer=random_uniform)
+        X = self.__mobile_net_block(X=X, filters=512, stride=1, f=3, initializer=random_uniform)
 
         # Layer 13
-        X = self._mobile_net_block(X=X, filters=512, stride=2, f=3, initializer=random_uniform)
+        X = self.__mobile_net_block(X=X, filters=512, stride=2, f=3, initializer=random_uniform)
 
         # Layer 14
-        X = self._mobile_net_block(X=X, filters=1024, stride=1, f=3, initializer=random_uniform)
+        X = self.__mobile_net_block(X=X, filters=1024, stride=1, f=3, initializer=random_uniform)
 
         # Average pooling layer
         X = AveragePooling2D(pool_size=(7, 7), strides=(1, 1))(X)
@@ -117,7 +117,7 @@ class MobileNetV2:
         self.class_numbers = classes
 
     @staticmethod
-    def _get_number_of_expansion_filters(X, expansion_ratio):
+    def __get_number_of_expansion_filters(X, expansion_ratio):
         """
         This method calculates the number of filters for expansion part.
         :param X:
@@ -127,8 +127,8 @@ class MobileNetV2:
 
         return X.shape[-1] * expansion_ratio
 
-    def _bottleneck_block(self, X_input, filters, expansion_ratio, filter_size=(3, 3), strides=(1, 1),
-                          is_add=False, initializer=random_uniform):
+    def __bottleneck_block(self, X_input, filters, expansion_ratio, filter_size=(3, 3), strides=(1, 1),
+                           is_add=False, initializer=random_uniform):
         """
         This is the bottleneck block in MobileNetV2.
         The other name of this block is "Inverted Residual Block"
@@ -143,7 +143,7 @@ class MobileNetV2:
         """
 
         # Get number of expansion filters
-        expansion_filters = self._get_number_of_expansion_filters(X=X_input, expansion_ratio=expansion_ratio)
+        expansion_filters = self.__get_number_of_expansion_filters(X=X_input, expansion_ratio=expansion_ratio)
 
         # Expansion part
         X = Conv2D(filters=expansion_filters, kernel_size=(1, 1), strides=(1, 1), padding='same',
@@ -182,35 +182,35 @@ class MobileNetV2:
                    kernel_initializer=random_uniform)(X_input)
 
         # Block 1
-        X = self._bottleneck_block(X_input=X, filters=16, expansion_ratio=1, strides=(1, 1), is_add=False)  # Layer 2
+        X = self.__bottleneck_block(X_input=X, filters=16, expansion_ratio=1, strides=(1, 1), is_add=False)  # Layer 2
 
         # Block 2
-        X = self._bottleneck_block(X_input=X, filters=24, expansion_ratio=6, strides=(2, 2), is_add=False)  # Layer 3
-        X = self._bottleneck_block(X_input=X, filters=24, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 4
+        X = self.__bottleneck_block(X_input=X, filters=24, expansion_ratio=6, strides=(2, 2), is_add=False)  # Layer 3
+        X = self.__bottleneck_block(X_input=X, filters=24, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 4
 
         # Block 3
-        X = self._bottleneck_block(X_input=X, filters=32, expansion_ratio=6, strides=(2, 2), is_add=False)  # Layer 5
-        X = self._bottleneck_block(X_input=X, filters=32, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 6
-        X = self._bottleneck_block(X_input=X, filters=32, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 7
+        X = self.__bottleneck_block(X_input=X, filters=32, expansion_ratio=6, strides=(2, 2), is_add=False)  # Layer 5
+        X = self.__bottleneck_block(X_input=X, filters=32, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 6
+        X = self.__bottleneck_block(X_input=X, filters=32, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 7
 
         # Block 4
-        X = self._bottleneck_block(X_input=X, filters=64, expansion_ratio=6, strides=(2, 2), is_add=False)  # Layer 8
-        X = self._bottleneck_block(X_input=X, filters=64, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 9
-        X = self._bottleneck_block(X_input=X, filters=64, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 10
-        X = self._bottleneck_block(X_input=X, filters=64, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 11
+        X = self.__bottleneck_block(X_input=X, filters=64, expansion_ratio=6, strides=(2, 2), is_add=False)  # Layer 8
+        X = self.__bottleneck_block(X_input=X, filters=64, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 9
+        X = self.__bottleneck_block(X_input=X, filters=64, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 10
+        X = self.__bottleneck_block(X_input=X, filters=64, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 11
 
         # Block 5
-        X = self._bottleneck_block(X_input=X, filters=96, expansion_ratio=6, strides=(1, 1), is_add=False)  # Layer 12
-        X = self._bottleneck_block(X_input=X, filters=96, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 13
-        X = self._bottleneck_block(X_input=X, filters=96, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 14
+        X = self.__bottleneck_block(X_input=X, filters=96, expansion_ratio=6, strides=(1, 1), is_add=False)  # Layer 12
+        X = self.__bottleneck_block(X_input=X, filters=96, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 13
+        X = self.__bottleneck_block(X_input=X, filters=96, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 14
 
         # Block 6
-        X = self._bottleneck_block(X_input=X, filters=160, expansion_ratio=6, strides=(2, 2), is_add=False)  # Layer 15
-        X = self._bottleneck_block(X_input=X, filters=160, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 16
-        X = self._bottleneck_block(X_input=X, filters=160, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 17
+        X = self.__bottleneck_block(X_input=X, filters=160, expansion_ratio=6, strides=(2, 2), is_add=False)  # Layer 15
+        X = self.__bottleneck_block(X_input=X, filters=160, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 16
+        X = self.__bottleneck_block(X_input=X, filters=160, expansion_ratio=6, strides=(1, 1), is_add=True)  # Layer 17
 
         # Block 7
-        X = self._bottleneck_block(X_input=X, filters=320, expansion_ratio=6, strides=(1, 1), is_add=False)  # Layer 18
+        X = self.__bottleneck_block(X_input=X, filters=320, expansion_ratio=6, strides=(1, 1), is_add=False)  # Layer 18
 
         # Layer 19
         X = Conv2D(filters=1280, kernel_size=(1, 1), strides=(1, 1), padding='same', activation='relu',
