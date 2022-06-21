@@ -16,7 +16,7 @@ class Config:
     # Train config
     BUFFER_SIZE = 500
     BATCH_SIZE = 64
-    EPOCHS = 10
+    EPOCHS = 50
 
     TRAIN_SUBSET = 0.8
     VALIDATION_SUBSET = 1 - TRAIN_SUBSET
