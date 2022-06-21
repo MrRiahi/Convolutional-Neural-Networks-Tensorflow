@@ -147,6 +147,24 @@ def load_model(model_path):
         # Load model
         model = tf.keras.models.load_model(model_path)
 
+    elif Cfg.MODEL_TYPE == 'InceptionV2':
+        input_shape = Cfg.INCEPTION_V2_INPUT_SIZE
+
+        # Load model
+        model = tf.keras.models.load_model(model_path)
+
+    elif Cfg.MODEL_TYPE == 'InceptionV3':
+        input_shape = Cfg.INCEPTION_V3_INPUT_SIZE
+
+        # Load model
+        model = tf.keras.models.load_model(model_path)
+
+    elif Cfg.MODEL_TYPE == 'Xception':
+        input_shape = Cfg.XCEPTION_INPUT_SIZE
+
+        # Load model
+        model = tf.keras.models.load_model(model_path)
+
     else:
         raise Exception('Invalid model type!')
 
