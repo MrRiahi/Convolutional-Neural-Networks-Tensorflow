@@ -123,6 +123,7 @@ Afterward, you can infer the Onnx model using the following command:
 * MobileNetV1: https://arxiv.org/pdf/1704.04861.pdf
 * MobileNetV2: https://arxiv.org/pdf/1801.04381.pdf
 * GoogLeNet: https://arxiv.org/pdf/1409.4842.pdf
+* VGG16: https://arxiv.org/pdf/1409.1556.pdf
 
 
 
