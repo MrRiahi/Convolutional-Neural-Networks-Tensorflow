@@ -161,6 +161,7 @@ class MobileNetV2:
         X = Conv2D(filters=filters, kernel_size=(1, 1), strides=(1, 1), padding='same',
                    kernel_initializer=initializer)(X)
         X = BatchNormalization()(X)
+        X = Activation('relu')(X)
 
         # Add layers
         if is_add:
