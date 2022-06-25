@@ -1,4 +1,4 @@
-from tensorflow.keras.layers import Conv2D, BatchNormalization, MaxPooling2D, \
+from tensorflow.keras.layers import Conv2D, BatchNormalization, MaxPooling2D, Activation, \
     Input, Dense, Flatten, Dropout, AveragePooling2D
 from tensorflow.keras.initializers import glorot_uniform
 from tensorflow.keras.models import Model
@@ -32,10 +32,11 @@ class VGG16:
 
         for i_filters in number_of_filters:
             X = Conv2D(filters=i_filters, kernel_size=(kernel_size, kernel_size),
-                       strides=(stride, stride), padding='same', activation='relu',
+                       strides=(stride, stride), padding='same',
                        kernel_initializer=glorot_uniform())(X)
 
             X = BatchNormalization()(X)
+            X = Activation('relu')(X)
 
         return X
 
@@ -128,10 +129,11 @@ class VGG13:
 
         for i_filters in number_of_filters:
             X = Conv2D(filters=i_filters, kernel_size=(kernel_size, kernel_size),
-                       strides=(stride, stride), padding='same', activation='relu',
+                       strides=(stride, stride), padding='same',
                        kernel_initializer=glorot_uniform())(X)
 
             X = BatchNormalization()(X)
+            X = Activation('relu')(X)
 
         return X
 
@@ -222,10 +224,11 @@ class VGG11:
 
         for i_filters in number_of_filters:
             X = Conv2D(filters=i_filters, kernel_size=(kernel_size, kernel_size),
-                       strides=(stride, stride), padding='same', activation='relu',
+                       strides=(stride, stride), padding='same',
                        kernel_initializer=glorot_uniform())(X)
 
             X = BatchNormalization()(X)
+            X = Activation('relu')(X)
 
         return X
 
