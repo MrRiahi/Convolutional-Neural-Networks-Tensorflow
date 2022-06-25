@@ -1,4 +1,4 @@
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dropout, \
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dropout, Activation, \
     Flatten, Dense, Input, AveragePooling2D, concatenate, BatchNormalization
 from tensorflow.keras.models import Model
 from tensorflow.keras.initializers import random_uniform, glorot_uniform
@@ -26,18 +26,25 @@ class GoogLeNet:
         filters_1by1, filters_3by3, filters_5by5 = filters
         kernel_size_1by1, kernel_size_3by3, kernel_size_5by5 = kernel_size
 
-        X_1by1 = Conv2D(filters=filters_1by1, kernel_size=kernel_size_1by1, strides=(1, 1), activation='relu',
+        X_1by1 = Conv2D(filters=filters_1by1, kernel_size=kernel_size_1by1, strides=(1, 1),
                         padding='valid', kernel_initializer=initializer())(X)
+        X_1by1 = BatchNormalization()(X_1by1)
+        X_1by1 = Activation('relu')(X_1by1)
 
-        X_3by3 = Conv2D(filters=filters_3by3, kernel_size=kernel_size_3by3, strides=(1, 1), activation='relu',
+        X_3by3 = Conv2D(filters=filters_3by3, kernel_size=kernel_size_3by3, strides=(1, 1),
                         padding='valid', kernel_initializer=initializer())(X)
+        X_3by3 = BatchNormalization()(X_3by3)
+        X_3by3 = Activation('relu')(X_3by3)
 
-        X_5by5 = Conv2D(filters=filters_5by5, kernel_size=kernel_size_5by5, strides=(1, 1), activation='relu',
+        X_5by5 = Conv2D(filters=filters_5by5, kernel_size=kernel_size_5by5, strides=(1, 1),
                         padding='valid', kernel_initializer=initializer())(X)
+        X_5by5 = BatchNormalization()(X_5by5)
+        X_5by5 = Activation('relu')(X_5by5)
 
         X_max_pooling = MaxPooling2D(pool_size=pool_size, strides=(1, 1), padding='same')(X)
 
         X_concat = concatenate(inputs=[X_1by1, X_3by3, X_5by5, X_max_pooling], axis=0)
+        X_concat = Activation('relu')(X_concat)
 
         return X_concat
 
@@ -60,25 +67,32 @@ class GoogLeNet:
         kernel_size_1by1, kernel_size_3by3, kernel_size_5by5 = kernel_size
 
         # 1x1 layer
-        X_1by1 = Conv2D(filters=filters_1by1, kernel_size=kernel_size_1by1, strides=(1, 1), activation='relu',
+        X_1by1 = Conv2D(filters=filters_1by1, kernel_size=kernel_size_1by1, strides=(1, 1),
                         padding='same', kernel_initializer=initializer())(X)
         X_1by1 = BatchNormalization()(X_1by1)
+        X_1by1 = Activation('relu')(X_1by1)
 
         # 3x3 layer
         X_reduced_3by3 = Conv2D(filters=reduced_filters_3by3, kernel_size=(1, 1), strides=(1, 1),
-                                activation='relu', padding='same', kernel_initializer=initializer())(X)
+                                padding='same', kernel_initializer=initializer())(X)
         X_reduced_3by3 = BatchNormalization()(X_reduced_3by3)
-        X_3by3 = Conv2D(filters=filters_3by3, kernel_size=kernel_size_3by3, strides=(1, 1), activation='relu',
+        X_reduced_3by3 = Activation('relu')(X_reduced_3by3)
+
+        X_3by3 = Conv2D(filters=filters_3by3, kernel_size=kernel_size_3by3, strides=(1, 1),
                         padding='same', kernel_initializer=initializer())(X_reduced_3by3)
         X_3by3 = BatchNormalization()(X_3by3)
+        X_3by3 = Activation('relu')(X_3by3)
 
         # 5x5 layer
         X_reduced_5by5 = Conv2D(filters=reduced_filters_5by5, kernel_size=(1, 1), strides=(1, 1),
-                                activation='relu', padding='same', kernel_initializer=initializer())(X)
+                                padding='same', kernel_initializer=initializer())(X)
         X_reduced_5by5 = BatchNormalization()(X_reduced_5by5)
-        X_5by5 = Conv2D(filters=filters_5by5, kernel_size=kernel_size_5by5, strides=(1, 1), activation='relu',
+        X_reduced_5by5 = Activation('relu')(X_reduced_5by5)
+
+        X_5by5 = Conv2D(filters=filters_5by5, kernel_size=kernel_size_5by5, strides=(1, 1),
                         padding='same', kernel_initializer=initializer())(X_reduced_5by5)
         X_5by5 = BatchNormalization()(X_5by5)
+        X_5by5 = Activation('relu')(X_5by5)
 
         # max pooling layer
         X_max_pooling = MaxPooling2D(pool_size=pool_size, strides=(1, 1), padding='same')(X)
@@ -86,9 +100,11 @@ class GoogLeNet:
                                 activation='relu', padding='same',
                                 kernel_initializer=initializer())(X_max_pooling)
         X_reduced_5by5 = BatchNormalization()(X_reduced_5by5)
+        X_reduced_5by5 = Activation('relu')(X_reduced_5by5)
 
         # concatenate layers
         X_concat = concatenate(inputs=[X_1by1, X_3by3, X_5by5, X_reduced_5by5])
+        X_concat = Activation('relu')(X_concat)
 
         return X_concat
 
@@ -105,9 +121,10 @@ class GoogLeNet:
         X_average_pool = AveragePooling2D(pool_size=(5, 5), strides=(3, 3), padding='valid')(X)
 
         # Convolution layer for dimensionality reduction
-        X_conv = Conv2D(filters=128, kernel_size=(1, 1), strides=(1, 1), padding='same', activation='relu',
+        X_conv = Conv2D(filters=128, kernel_size=(1, 1), strides=(1, 1), padding='same',
                         kernel_initializer=initializer())(X_average_pool)
         X_conv = BatchNormalization()(X_conv)
+        X_conv = Activation('relu')(X_conv)
 
         # Flatten layer
         X_flatten = Flatten()(X_conv)
@@ -136,6 +153,7 @@ class GoogLeNet:
         X = Conv2D(filters=64, kernel_size=(7, 7), strides=(2, 2), padding='same',
                    kernel_initializer=random_uniform)(X_input)
         X = BatchNormalization()(X)
+        X = Activation('relu')(X)
 
         # Layer 2
         X = MaxPooling2D(pool_size=(3, 3), strides=(2, 2), padding='same')(X)
@@ -144,11 +162,13 @@ class GoogLeNet:
         X = Conv2D(filters=64, kernel_size=(1, 1), strides=(1, 1), padding='valid',
                    kernel_initializer=random_uniform)(X)
         X = BatchNormalization()(X)
+        X = Activation('relu')(X)
 
         # Layer 4
         X = Conv2D(filters=192, kernel_size=(3, 3), strides=(1, 1), padding='same',
                    kernel_initializer=random_uniform)(X)
         X = BatchNormalization()(X)
+        X = Activation('relu')(X)
 
         # Layer 5
         X = MaxPooling2D(pool_size=(3, 3), strides=(2, 2), padding='same')(X)
