@@ -34,8 +34,8 @@ source venv/bin/activate
 Install python requirements.
 
 ```bash
-(venv) pip install --upgrade pip
-(venv) pip install -r requirements.txt
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
 ## Train 
@@ -43,21 +43,21 @@ Install python requirements.
 Set your model name, number of epochs, dataset details in `utils/config.py` and run the following command:
 
 ```bash
-(venv) python train.py
+python train.py
 ```
 
 ## Evaluation
 To evaluate your model, set your dataset path in `evaluate.py` and run the following command in terminal:
 
 ```bash
-(venv) python evaluate.py
+python evaluate.py
 ```
 
 ## Inference
 To infer your model, set your image directory in `predict.py` and run the following command in terminal:
 
 ```bash
-(venv) python predict.py
+python predict.py
 ```
 
 ## Result
@@ -76,33 +76,33 @@ The result of models on test dataset are reported in the following table.
 You can convert the tensorflow model to TFLite by using the following command:
 
 ```bash
-(venv) python convert.py
+python convert.py
 ```
 
 Afterward, you can infer the TFLite model using the following command:
 
 ```bash
-(venv) python infer_tflite.py
+python infer_tflite.py
 ```
 
 ## Convert to Onnx
 You can convert the tensorflow model to Onnx by using the following command in terminal:
 
 ```bash
-(venv) python -m tf2onnx.convert --saved-model models/cifar-10/ResNet50 \
-              --output models/cifar-10/ResNet50.onnx --opset 11 --verbos
+python -m tf2onnx.convert --saved-model models/cifar-10/ResNet50 \
+       --output models/cifar-10/ResNet50.onnx --opset 11 --verbos
 ```
 
 Afterward, you can infer the Onnx model using the following command:
 
 ```bash
-(venv) python infer_onnx.py
+python infer_onnx.py
 ``` 
 
 # TODO
-- [ ] Train ResNet50
-- [x] Train MobileNetV1
-- [ ] Train MobileNetV2
+- [ ] Implement and train ResNet50
+- [ ] Implement and train MobileNetV1
+- [ ] Implement and train MobileNetV2
 - [x] Create a data generator for GoogLeNet
 - [ ] Train GoogleNet
 - [x] Add evaluation 
@@ -124,6 +124,7 @@ Afterward, you can infer the Onnx model using the following command:
 * MobileNetV2: https://arxiv.org/pdf/1801.04381.pdf
 * GoogLeNet: https://arxiv.org/pdf/1409.4842.pdf
 * VGG16: https://arxiv.org/pdf/1409.1556.pdf
+* InceptionV2: https://arxiv.org/pdf/1502.03167v3.pdf
 
 
 
