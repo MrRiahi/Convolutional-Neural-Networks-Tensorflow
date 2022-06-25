@@ -252,7 +252,8 @@ def get_train_dataset(input_shape):
     if Cfg.MODEL_TYPE == 'GoogLeNet':
         train_dataset, val_dataset = get_train_dataset_with_tf_dataset()
 
-    elif Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2', 'VGG16', 'VGG13', 'VGG11']:
+    elif Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2', 'VGG16', 'VGG13',
+                            'VGG11', 'InceptionV2']:
         train_dataset, val_dataset = get_train_dataset_with_image_data_gen(
             directory=f'./{Cfg.TRAIN_DATASET_PATH}',
             classes=Cfg.CIFAR_10_CLASS_NAMES,
@@ -279,7 +280,8 @@ def get_test_dataset(input_shape):
     if Cfg.MODEL_TYPE == 'GoogLeNet':
         test_dataset = get_test_dataset_with_tf_dataset()
 
-    elif Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2', 'VGG16', 'VGG13', 'VGG11']:
+    elif Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2', 'VGG16', 'VGG13',
+                            'VGG11', 'InceptionV2']:
         test_dataset = get_test_dataset_with_image_data_gen(
             directory=f'./{Cfg.TEST_DATASET_PATH}',
             classes=Cfg.CIFAR_10_CLASS_NAMES,

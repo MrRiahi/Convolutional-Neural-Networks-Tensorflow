@@ -4,6 +4,7 @@ import tensorflow as tf
 
 from src.MobileNet import MobileNetV1, MobileNetV2
 from src.VGG import VGG16, VGG13, VGG11
+from src.Inception import InceptionV2
 from src.GoogLeNet import GoogLeNet
 from src.ResNet import ResNet50
 
@@ -91,6 +92,17 @@ def get_model(classes_numbers):
 
         # Compile model
         model.compile(loss=CategoricalCrossentropy(), optimizer='adam', metrics=['accuracy'])
+
+    elif Cfg.MODEL_TYPE == 'InceptionV2':
+        # Build model
+        input_size = Cfg.INCEPTION_V2_INPUT_SIZE
+        inception_v2_net = InceptionV2(input_shape=input_size, classes=classes_numbers)
+        model = inception_v2_net.inception_v2()
+
+        # Compile model
+        optimizer = SGD(learning_rate=0.1, momentum=0.9)
+
+        model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
     else:
         raise Exception('Invalid model type!')
