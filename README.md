@@ -66,7 +66,7 @@ The result of models on test dataset are reported in the following table.
 |             | loss_test | acc_test |
 |-------------|:---------:|:--------:|
 | MobileNetV2 |  0.3866   |  89.98   |
-| VGG19       |  0.4811   |  84.33   | 
+| VGG16       |  0.4811   |  84.33   | 
 | MobileNetV1 |  0.5307   |  85.37   |
 | ResNet50    |  0.6056   |  81.71   |
 | GoogLeNet   |  0.6908   |  81.28   |
@@ -100,18 +100,18 @@ Afterward, you can infer the Onnx model using the following command:
 ``` 
 
 # TODO
-- [x] Train ResNet50
+- [ ] Train ResNet50
 - [x] Train MobileNetV1
-- [x] Train MobileNetV2
+- [ ] Train MobileNetV2
 - [x] Create a data generator for GoogLeNet
-- [x] Train GoogleNet
+- [ ] Train GoogleNet
 - [x] Add evaluation 
 - [x] Add Inference
 - [x] Convert models to TFLite
 - [x] Convert  models to Onnx
 - [x] Inference with TFLite
 - [x] Inference with Onnx
-- [x] Implement and train VGG16
+- [ ] Implement and train VGG16
 - [ ] Implement and train Inception-V2
 - [ ] Implement and train Inception-V3
 - [ ] Implement and train Inception-ResNet-50
