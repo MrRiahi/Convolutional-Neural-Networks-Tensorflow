@@ -46,6 +46,7 @@ class ResNet50:
         X = Conv2D(filters=filters_3, kernel_size=(1, 1), strides=(1, 1), padding='valid',
                    kernel_initializer=initializer(seed=0))(X)
         X = BatchNormalization()(X)
+        X = Activation('relu')(X)
 
         # Final step: Add shortcut value to main path, and pass it through a RELU activation (≈2 lines)
         X = Add()([X_shortcut, X])
@@ -88,11 +89,13 @@ class ResNet50:
         X = Conv2D(filters=filters_3, kernel_size=(1, 1), strides=(1, 1), padding='valid',
                    kernel_initializer=initializer(seed=0))(X)
         X = BatchNormalization()(X)
+        X = Activation('relu')(X)
 
         # Shortcut path
         X_shortcut = Conv2D(filters=filters_3, kernel_size=(1, 1), strides=(stride, stride), padding='valid',
                             kernel_initializer=initializer(seed=0))(X_shortcut)
         X_shortcut = BatchNormalization()(X_shortcut)
+        X_shortcut = Activation('relu')(X_shortcut)
 
         # Add shortcut path to main path
         X = Add()([X, X_shortcut])
@@ -116,6 +119,7 @@ class ResNet50:
         X = Conv2D(64, (7, 7), strides=(2, 2), kernel_initializer=glorot_uniform(seed=0))(X)
         X = BatchNormalization(axis=3)(X)
         X = Activation('relu')(X)
+
         X = MaxPooling2D((3, 3), strides=(2, 2))(X)
 
         # Stage 2
