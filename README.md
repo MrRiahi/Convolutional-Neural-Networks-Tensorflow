@@ -6,6 +6,7 @@ Results and codes will be updated in the future. The implemented models are:
 * MobileNetV2
 * GoogLeNet
 * VGG16
+* InceptionV2
 
 In the future, this repository will be updated with other convolutional neural networks.
 
