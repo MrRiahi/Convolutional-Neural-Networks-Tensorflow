@@ -1,6 +1,5 @@
 # Convolutional-Neural-Networks
-In this repository, I build different image classification CNN models from scratch in Tensorflow. 
-Results and codes will be updated in the future. The implemented models are:
+This repository implements the most famous image classification CNN models from scratch in Tensorflow. The implemented models are:
 * ResNet50
 * MobileNetV1
 * MobileNetV2
