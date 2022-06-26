@@ -12,12 +12,12 @@ class Config:
     VGG11_NET_INPUT_SIZE = (224, 224)
 
     # 'MobileNetV1', 'MobileNetV2', 'ResNet50', 'GoogLeNet', 'VGG16', 'VGG13', 'VGG11', 'InceptionV2'
-    MODEL_TYPE = 'InceptionV2'
+    MODEL_TYPE = 'ResNet50'
 
     # Train config
     BUFFER_SIZE = 500
     BATCH_SIZE = 64
-    EPOCHS = 50
+    EPOCHS = 300
 
     TRAIN_SUBSET = 0.8
     VALIDATION_SUBSET = 1 - TRAIN_SUBSET
