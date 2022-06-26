@@ -69,7 +69,7 @@ The result of models on test dataset are reported in the following table.
 | MobileNetV2 |  0.3866   |  89.98   |
 | VGG16       |  0.4811   |  84.33   | 
 | MobileNetV1 |  0.5307   |  85.37   |
-| ResNet50    |  0.6056   |  81.71   |
+| ResNet50    |  0.6503   |  81.94   |
 | GoogLeNet   |  0.6908   |  81.28   |
 
 
@@ -101,7 +101,7 @@ python infer_onnx.py
 ``` 
 
 # TODO
-- [ ] Implement and train ResNet50
+- [x] Implement and train ResNet50
 - [ ] Implement and train MobileNetV1
 - [ ] Implement and train MobileNetV2
 - [x] Create a data generator for GoogLeNet
