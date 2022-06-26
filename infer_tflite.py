@@ -20,7 +20,7 @@ output_details = interpreter.get_output_details()
 input_shape = tuple(input_details[0]['shape'][1:3])
 
 # Load images
-images_path = ['./samples/30.png']
+images_path = ['./samples/17.png']
 images = Uf.load_images(images_path=images_path, input_shape=input_shape)
 
 # Convert float64 to float32
