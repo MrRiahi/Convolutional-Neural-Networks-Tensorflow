@@ -66,7 +66,7 @@ The result of models on test dataset are reported in the following table.
 
 |             | loss_test | acc_test |
 |-------------|:---------:|:--------:|
-| MobileNetV2 |  0.3866   |  89.98   |
+| MobileNetV2 |  0.5142   |  87.88   |
 | VGG16       |  0.4811   |  84.33   | 
 | MobileNetV1 |  0.5307   |  85.37   |
 | ResNet50    |  0.6503   |  81.94   |
