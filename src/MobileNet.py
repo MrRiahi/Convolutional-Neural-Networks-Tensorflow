@@ -48,6 +48,7 @@ class MobileNetV1:
         # Layer 1
         X = Conv2D(kernel_size=(3, 3), filters=32, strides=(2, 2), padding='same',
                    kernel_initializer=random_uniform)(X_input)
+        X = BatchNormalization()(X)
 
         # Layer 2
         X = self.__mobile_net_block(X=X, filters=64, stride=1, f=3, initializer=random_uniform)
