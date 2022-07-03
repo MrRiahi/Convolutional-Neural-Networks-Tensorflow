@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import math
 import cv2
@@ -41,3 +42,20 @@ class UtilityFunction:
         labels = [Cfg.CIFAR_10_CLASS_NAMES[np.argmax(prediction)] for prediction in predictions]
 
         return labels
+
+    @staticmethod
+    def create_figure(title, x_label, y_label):
+        """
+        Create a figure with title, x_label, and y_label.
+        :param title: figure title
+        :param x_label: label of x axis
+        :param y_label: label of y axis
+        """
+
+        fig, ax = plt.subplots()
+
+        ax.set_ylabel(y_label)
+        ax.set_xlabel(x_label)
+        ax.set_title(title)
+
+        return fig, ax
