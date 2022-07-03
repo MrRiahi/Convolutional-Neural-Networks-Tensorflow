@@ -2,28 +2,20 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
+from src.utils import UtilityFunction as Uf
+
 models_path = f'./models/cifar-10/'
 models_name = [model_name for model_name in os.listdir(models_path) if len(model_name.split('.')) == 1]
 
-fig_train_acc, ax_train_acc = plt.subplots()
-ax_train_acc.set_ylabel('Accuracy')
-ax_train_acc.set_xlabel('Epochs')
-ax_train_acc.set_title('Train accuracy')
 
-fig_train_loss, ax_train_loss = plt.subplots()
-ax_train_loss.set_ylabel('Loss')
-ax_train_loss.set_xlabel('Epochs')
-ax_train_loss.set_title('Train loss')
+fig_train_acc, ax_train_acc = Uf.create_figure(title='Train accuracy', x_label='Epochs', y_label='Accuracy')
 
-fig_val_acc, ax_val_acc = plt.subplots()
-ax_val_acc.set_ylabel('Accuracy')
-ax_val_acc.set_xlabel('Epochs')
-ax_val_acc.set_title('Validation accuracy')
+fig_train_loss, ax_train_loss = Uf.create_figure(title='Train loss', x_label='Epochs', y_label='Loss')
 
-fig_val_loss, ax_val_loss = plt.subplots()
-ax_val_loss.set_ylabel('Loss')
-ax_val_loss.set_xlabel('Epochs')
-ax_val_loss.set_title('Validation loss')
+
+fig_val_acc, ax_val_acc = Uf.create_figure(title='Validation accuracy', x_label='Epochs', y_label='Accuracy')
+
+fig_val_loss, ax_val_loss = Uf.create_figure(title='Validation loss', x_label='Epochs', y_label='Loss')
 
 for model_name in models_name:
     history = np.load(f'{models_path}/{model_name}/history.npy', allow_pickle=True)
