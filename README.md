@@ -68,7 +68,7 @@ The result of models on test dataset are reported in the following table.
 | MobileNetV2 |  0.5142   |  87.88   |
 | ResNet50    |  0.6503   |  81.94   |
 
-<img src="./images/train_acc.png" width="500"/> <img src="./images/train_acc.png" width="500"/> 
+<img src="./images/train_acc.png" width="350"/> <img src="./images/train_acc.png" width="350"/> 
 
 
 ## Convert to TFLite
