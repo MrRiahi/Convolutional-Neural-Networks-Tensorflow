@@ -66,11 +66,13 @@ The result of models on test dataset are reported in the following table.
 |             | loss_test | acc_test |
 |-------------|:---------:|:--------:|
 | MobileNetV2 |  0.5142   |  87.88   |
-| VGG16       |  0.4811   |  84.33   | 
-| MobileNetV1 |  0.5307   |  85.37   |
 | ResNet50    |  0.6503   |  81.94   |
-| GoogLeNet   |  0.6908   |  81.28   |
 
+![alt text](./images/train_acc.png)
+![alt text](./images/train_loss.png)
+
+![alt text](./images/val_acc.png)
+![alt text](./images/val_loss.png)
 
 ## Convert to TFLite
 You can convert the tensorflow model to TFLite by using the following command:
@@ -102,7 +104,7 @@ python infer_onnx.py
 # TODO
 - [x] Implement and train ResNet50
 - [ ] Implement and train MobileNetV1
-- [ ] Implement and train MobileNetV2
+- [x] Implement and train MobileNetV2
 - [x] Create a data generator for GoogLeNet
 - [ ] Train GoogleNet
 - [x] Add evaluation 
@@ -112,6 +114,7 @@ python infer_onnx.py
 - [x] Inference with TFLite
 - [x] Inference with Onnx
 - [ ] Implement and train VGG16
+- [ ] Implement and train BN-Inception
 - [ ] Implement and train Inception-V2
 - [ ] Implement and train Inception-V3
 - [ ] Implement and train Inception-ResNet-50
