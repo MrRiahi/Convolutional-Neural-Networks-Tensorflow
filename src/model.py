@@ -2,11 +2,14 @@ from tensorflow.keras.losses import CategoricalCrossentropy
 from tensorflow.keras.optimizers import SGD
 import tensorflow as tf
 
-from src.MobileNet import MobileNetV1, MobileNetV2
-from src.VGG import VGG16, VGG13, VGG11
-from src.Inception import InceptionV2
-from src.GoogLeNet import GoogLeNet
-from src.ResNet import ResNet50
+from src.MobileNets.MobileNetV1 import MobileNetV1
+from src.MobileNets.MobileNetV2 import MobileNetV2
+from src.VGGs.VGG16 import VGG16
+from src.VGGs.VGG13 import VGG13
+from src.VGGs.VGG11 import VGG11
+from src.Inceptions.GoogLeNet import GoogLeNet
+from src.Inceptions.BN_Inception import BNInception
+from src.ResNets.ResNet50 import ResNet50
 
 from src.config import Config as Cfg
 
@@ -93,11 +96,11 @@ def get_model(classes_numbers):
         # Compile model
         model.compile(loss=CategoricalCrossentropy(), optimizer='adam', metrics=['accuracy'])
 
-    elif Cfg.MODEL_TYPE == 'InceptionV2':
+    elif Cfg.MODEL_TYPE == 'BNInception':
         # Build model
-        input_size = Cfg.INCEPTION_V2_INPUT_SIZE
-        inception_v2_net = InceptionV2(input_shape=input_size, classes=classes_numbers)
-        model = inception_v2_net.inception_v2()
+        input_size = Cfg.INCEPTION_BN_INPUT_SIZE
+        inception_bn_net = BNInception(input_shape=input_size, classes=classes_numbers)
+        model = inception_bn_net.inception_bn()
 
         # Compile model
         optimizer = SGD(learning_rate=0.1, momentum=0.9)
@@ -159,7 +162,7 @@ def load_model(model_path):
         # Load model
         model = tf.keras.models.load_model(model_path)
 
-    elif Cfg.MODEL_TYPE == 'InceptionV2':
+    elif Cfg.MODEL_TYPE == 'BNInception':
         input_shape = Cfg.INCEPTION_V2_INPUT_SIZE
 
         # Load model
