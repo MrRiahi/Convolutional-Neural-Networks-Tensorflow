@@ -5,7 +5,9 @@ This repository implements the most famous image classification CNN models from 
 * MobileNetV2
 * GoogLeNet
 * VGG16
-* InceptionV2
+* VGG11
+* VGG13
+* BN-Inception
 
 In the future, this repository will be updated with other convolutional neural networks.
 
@@ -104,7 +106,7 @@ python infer_onnx.py
 - [ ] Implement and train MobileNetV1
 - [x] Implement and train MobileNetV2
 - [x] Create a data generator for GoogLeNet
-- [ ] Train GoogleNet
+- [ ] Implement and train GoogleNet
 - [x] Add evaluation 
 - [x] Add Inference
 - [x] Convert models to TFLite
