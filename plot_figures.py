@@ -24,6 +24,10 @@ for model_name in models_name:
     train_loss = history['loss']
     val_loss = history['val_loss']
 
+    if max(val_loss) >= 40:
+        val_loss = np.array(val_loss)
+        val_loss[val_loss >= 40] = 40
+
     train_acc = history['accuracy']
     val_acc = history['val_accuracy']
 
