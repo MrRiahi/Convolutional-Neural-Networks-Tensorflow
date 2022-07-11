@@ -105,7 +105,7 @@ python infer_onnx.py
 
 # TODO
 - [x] Implement and train ResNet50
-- [ ] Implement and train MobileNetV1
+- [x] Implement and train MobileNetV1
 - [x] Implement and train MobileNetV2
 - [x] Create a data generator for GoogLeNet
 - [ ] Implement and train GoogleNet
