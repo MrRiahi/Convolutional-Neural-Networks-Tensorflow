@@ -109,7 +109,7 @@ python infer_onnx.py
 - [x] Implement and train MobileNetV1
 - [x] Implement and train MobileNetV2
 - [x] Create a data generator for GoogLeNet
-- [ ] Implement and train GoogleNet
+- [x] Implement and train GoogleNet
 - [x] Add evaluation 
 - [x] Add Inference
 - [x] Convert models to TFLite
