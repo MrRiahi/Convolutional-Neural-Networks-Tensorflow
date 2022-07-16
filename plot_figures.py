@@ -21,15 +21,23 @@ for model_name in models_name:
     history = np.load(f'{models_path}/{model_name}/history.npy', allow_pickle=True)
     history = history.tolist()
 
-    train_loss = history['loss']
-    val_loss = history['val_loss']
+    if model_name == 'GoogLeNet':
+        train_loss = history['output_loss']
+        val_loss = history['val_output_loss']
+    else:
+        train_loss = history['loss']
+        val_loss = history['val_loss']
 
-    if max(val_loss) >= 40:
+    if max(val_loss) >= 10:
         val_loss = np.array(val_loss)
-        val_loss[val_loss >= 40] = 40
+        val_loss[val_loss >= 10] = 10
 
-    train_acc = history['accuracy']
-    val_acc = history['val_accuracy']
+    if model_name == 'GoogLeNet':
+        train_acc = history['output_accuracy']
+        val_acc = history['val_output_accuracy']
+    else:
+        train_acc = history['accuracy']
+        val_acc = history['val_accuracy']
 
     ax_train_acc.plot(train_acc)
     ax_train_loss.plot(train_loss)
