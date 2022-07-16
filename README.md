@@ -68,6 +68,7 @@ The result of models on test dataset are reported in the following table.
 |             | loss_test | acc_test |
 |-------------|:---------:|:--------:|
 | MobileNetV2 |  0.5142   |  87.88   |
+| GoogLeNet   |  0.6244   |  81.03   |
 | ResNet50    |  0.6503   |  81.94   |
 | MobileNetV1 |  0.6547   |  82.54   |
 
@@ -105,7 +106,7 @@ python infer_onnx.py
 
 # TODO
 - [x] Implement and train ResNet50
-- [ ] Implement and train MobileNetV1
+- [x] Implement and train MobileNetV1
 - [x] Implement and train MobileNetV2
 - [x] Create a data generator for GoogLeNet
 - [ ] Implement and train GoogleNet
