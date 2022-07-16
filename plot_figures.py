@@ -28,9 +28,9 @@ for model_name in models_name:
         train_loss = history['loss']
         val_loss = history['val_loss']
 
-    if max(val_loss) >= 10:
+    if max(val_loss) >= 5:
         val_loss = np.array(val_loss)
-        val_loss[val_loss >= 10] = 10
+        val_loss[val_loss >= 5] = 5
 
     if model_name == 'GoogLeNet':
         train_acc = history['output_accuracy']
