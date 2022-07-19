@@ -12,7 +12,7 @@ class Config:
     VGG11_NET_INPUT_SIZE = (224, 224)
 
     # 'MobileNetV1', 'MobileNetV2', 'ResNet50', 'GoogLeNet', 'VGG16', 'VGG13', 'VGG11', 'BNInception'
-    MODEL_TYPE = 'GoogLeNet'
+    MODEL_TYPE = 'BNInception'
 
     # Train config
     BUFFER_SIZE = 500
