@@ -163,7 +163,7 @@ def load_model(model_path):
         model = tf.keras.models.load_model(model_path)
 
     elif Cfg.MODEL_TYPE == 'BNInception':
-        input_shape = Cfg.INCEPTION_V2_INPUT_SIZE
+        input_shape = Cfg.INCEPTION_BN_INPUT_SIZE
 
         # Load model
         model = tf.keras.models.load_model(model_path)
