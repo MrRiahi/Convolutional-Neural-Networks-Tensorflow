@@ -119,7 +119,6 @@ python infer_onnx.py
 - [x] Inference with Onnx
 - [ ] Implement and train VGG16
 - [x] Implement and train BN-Inception
-- [ ] Implement and train Inception-V2
 - [ ] Implement and train Inception-V3
 - [ ] Implement and train Inception-ResNet-50
 - [ ] Implement and train Xception
