@@ -2,14 +2,15 @@ from tensorflow.keras.losses import CategoricalCrossentropy
 from tensorflow.keras.optimizers import SGD
 import tensorflow as tf
 
+from src.Inceptions.BN_Inception import BNInception
 from src.MobileNets.MobileNetV1 import MobileNetV1
 from src.MobileNets.MobileNetV2 import MobileNetV2
+from src.Inceptions.InceptionV3 import InceptionV3
+from src.Inceptions.GoogLeNet import GoogLeNet
+from src.ResNets.ResNet50 import ResNet50
 from src.VGGs.VGG16 import VGG16
 from src.VGGs.VGG13 import VGG13
 from src.VGGs.VGG11 import VGG11
-from src.Inceptions.GoogLeNet import GoogLeNet
-from src.Inceptions.BN_Inception import BNInception
-from src.ResNets.ResNet50 import ResNet50
 
 from src.config import Config as Cfg
 
@@ -107,6 +108,11 @@ def get_model(classes_numbers):
 
         model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
+    elif Cfg.MODEL_TYPE == 'InceptionV3':
+        # Build model
+        input_size = Cfg.INCEPTION_V3_INPUT_SIZE
+        inception_v3_net = InceptionV3(input_shape=input_size, classes=classes_numbers)
+
     else:
         raise Exception('Invalid model type!')
 
@@ -170,12 +176,6 @@ def load_model(model_path):
 
     elif Cfg.MODEL_TYPE == 'InceptionV3':
         input_shape = Cfg.INCEPTION_V3_INPUT_SIZE
-
-        # Load model
-        model = tf.keras.models.load_model(model_path)
-
-    elif Cfg.MODEL_TYPE == 'Xception':
-        input_shape = Cfg.XCEPTION_INPUT_SIZE
 
         # Load model
         model = tf.keras.models.load_model(model_path)
