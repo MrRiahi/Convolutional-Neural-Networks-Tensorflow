@@ -131,7 +131,7 @@ python infer_onnx.py
 * MobileNetV2: https://arxiv.org/pdf/1801.04381.pdf
 * GoogLeNet: https://arxiv.org/pdf/1409.4842.pdf
 * VGG16: https://arxiv.org/pdf/1409.1556.pdf
-* InceptionV2: https://arxiv.org/pdf/1502.03167v3.pdf
+* BNInception: https://arxiv.org/pdf/1502.03167v3.pdf
 
 
 
