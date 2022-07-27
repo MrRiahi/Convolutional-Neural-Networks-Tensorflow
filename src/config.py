@@ -8,13 +8,14 @@ class Config:
     GOOGLE_NET_INPUT_SIZE = (224, 224)
     INCEPTION_BN_INPUT_SIZE = (224, 224)
     INCEPTION_V3_INPUT_SIZE = (299, 299)
+    INCEPTION_V4_INPUT_SIZE = (299, 299)
     VGG16_NET_INPUT_SIZE = (224, 224)
     VGG13_NET_INPUT_SIZE = (224, 224)
     VGG11_NET_INPUT_SIZE = (224, 224)
 
     # 'MobileNetV1', 'MobileNetV2', 'ResNet50', 'GoogLeNet', 'VGG16', 'VGG13', 'VGG11', 'BNInception'
-    # 'InceptionV3'
-    MODEL_TYPE = 'InceptionV3'
+    # 'InceptionV3', 'InceptionV4'
+    MODEL_TYPE = 'InceptionV4'
 
     # Train config
     BUFFER_SIZE = 500
