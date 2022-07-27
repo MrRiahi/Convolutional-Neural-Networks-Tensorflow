@@ -6,6 +6,7 @@ from src.Inceptions.BN_Inception import BNInception
 from src.MobileNets.MobileNetV1 import MobileNetV1
 from src.MobileNets.MobileNetV2 import MobileNetV2
 from src.Inceptions.InceptionV3 import InceptionV3
+from src.Inceptions.InceptionV4 import InceptionV4
 from src.Inceptions.GoogLeNet import GoogLeNet
 from src.ResNets.ResNet50 import ResNet50
 from src.VGGs.VGG16 import VGG16
@@ -112,6 +113,12 @@ def get_model(classes_numbers):
         # Build model
         input_size = Cfg.INCEPTION_V3_INPUT_SIZE
         inception_v3_net = InceptionV3(input_shape=input_size, classes=classes_numbers)
+
+    elif Cfg.MODEL_TYPE == 'InceptionV4':
+        # Build model
+        input_size = Cfg.INCEPTION_V4_INPUT_SIZE
+        inception_v4_net = InceptionV4(input_shape=input_size, classes=classes_numbers)
+        model = inception_v4_net.inception_v4()
 
     else:
         raise Exception('Invalid model type!')
