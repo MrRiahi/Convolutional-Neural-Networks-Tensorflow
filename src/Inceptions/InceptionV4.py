@@ -82,7 +82,7 @@ class InceptionV4:
         """
 
         # first branch
-        X_b1 = AveragePooling2D(pool_size=(3,3), strides=(1,1), padding='same')(X)
+        X_b1 = AveragePooling2D(pool_size=(3, 3), strides=(1, 1), padding='same')(X)
         X_b1 = Conv2D(filters=96, kernel_size=(1, 1), strides=(1, 1), padding='same',
                       kernel_initializer=random_uniform)(X_b1)
 
@@ -161,18 +161,18 @@ class InceptionV4:
                       kernel_initializer=random_uniform)(X_b3)
 
         # forth branch
-        X_b3 = Conv2D(filters=192, kernel_size=(1, 1), strides=(1, 1), padding='same',
+        X_b4 = Conv2D(filters=192, kernel_size=(1, 1), strides=(1, 1), padding='same',
                       kernel_initializer=random_uniform)(X)
-        X_b3 = Conv2D(filters=192, kernel_size=(1, 7), strides=(1, 1), padding='same',
-                      kernel_initializer=random_uniform)(X_b3)
-        X_b3 = Conv2D(filters=224, kernel_size=(7, 1), strides=(1, 1), padding='same',
-                      kernel_initializer=random_uniform)(X_b3)
-        X_b3 = Conv2D(filters=224, kernel_size=(1, 7), strides=(1, 1), padding='same',
-                      kernel_initializer=random_uniform)(X_b3)
-        X_b3 = Conv2D(filters=256, kernel_size=(7, 1), strides=(1, 1), padding='same',
-                      kernel_initializer=random_uniform)(X_b3)
+        X_b4 = Conv2D(filters=192, kernel_size=(1, 7), strides=(1, 1), padding='same',
+                      kernel_initializer=random_uniform)(X_b4)
+        X_b4 = Conv2D(filters=224, kernel_size=(7, 1), strides=(1, 1), padding='same',
+                      kernel_initializer=random_uniform)(X_b4)
+        X_b4 = Conv2D(filters=224, kernel_size=(1, 7), strides=(1, 1), padding='same',
+                      kernel_initializer=random_uniform)(X_b4)
+        X_b4 = Conv2D(filters=256, kernel_size=(7, 1), strides=(1, 1), padding='same',
+                      kernel_initializer=random_uniform)(X_b4)
 
-        X = Concatenate(axis=-1)([X_b1, X_b2, X_b3])
+        X = Concatenate(axis=-1)([X_b1, X_b2, X_b3, X_b4])
 
         return X
 
@@ -183,6 +183,72 @@ class InceptionV4:
         :param X:
         :return:
         """
+
+        # first branch
+        X_b1 = MaxPooling2D(pool_size=(3, 3), strides=(2, 2), padding='valid')(X)
+
+        # second branch
+        X_b2 = Conv2D(filters=192, kernel_size=(1, 1), strides=(1, 1), padding='same',
+                      kernel_initializer=random_uniform)(X)
+        X_b2 = Conv2D(filters=192, kernel_size=(3, 3), strides=(2, 2), padding='valid',
+                      kernel_initializer=random_uniform)(X_b2)
+
+        # third branch
+        X_b3 = Conv2D(filters=256, kernel_size=(1, 1), strides=(1, 1), padding='same',
+                      kernel_initializer=random_uniform)(X)
+        X_b3 = Conv2D(filters=256, kernel_size=(1, 7), strides=(1, 1), padding='same',
+                      kernel_initializer=random_uniform)(X_b3)
+        X_b3 = Conv2D(filters=320, kernel_size=(7, 1), strides=(1, 1), padding='same',
+                      kernel_initializer=random_uniform)(X_b3)
+        X_b3 = Conv2D(filters=320, kernel_size=(3, 3), strides=(2, 2), padding='valid',
+                      kernel_initializer=random_uniform)(X_b3)
+
+        X = Concatenate(axis=-1)([X_b1, X_b2, X_b3])
+
+        return X
+
+    @staticmethod
+    def __inception_c(X):
+        """
+        Build the inception-C block of the InceptionV4 network.
+        :param X:
+        :return:
+        """
+
+        # first branch
+        X_b1 = AveragePooling2D(pool_size=(3, 3), strides=(1, 1), padding='same')(X)
+        X_b1 = Conv2D(filters=256, kernel_size=(1, 1), strides=(1, 1), padding='same',
+                      kernel_initializer=random_uniform)(X_b1)
+
+        # second branch
+        X_b2 = Conv2D(filters=256, kernel_size=(1, 1), strides=(1, 1), padding='same',
+                      kernel_initializer=random_uniform)(X)
+
+        # third branch
+        X_b3 = Conv2D(filters=384, kernel_size=(1, 1), strides=(1, 1), padding='same',
+                      kernel_initializer=random_uniform)(X)
+
+        X_b3_s1 = Conv2D(filters=256, kernel_size=(3, 1), strides=(1, 1), padding='same',
+                         kernel_initializer=random_uniform)(X_b3)  # first sub-branch
+        X_b3_s2 = Conv2D(filters=256, kernel_size=(1, 3), strides=(1, 1), padding='same',
+                         kernel_initializer=random_uniform)(X_b3)  # second sub-branch
+
+        # forth branch
+        X_b4 = Conv2D(filters=384, kernel_size=(1, 1), strides=(1, 1), padding='same',
+                      kernel_initializer=random_uniform)(X)
+        X_b4 = Conv2D(filters=448, kernel_size=(1, 3), strides=(1, 1), padding='same',
+                      kernel_initializer=random_uniform)(X_b4)
+        X_b4 = Conv2D(filters=512, kernel_size=(3, 1), strides=(1, 1), padding='same',
+                      kernel_initializer=random_uniform)(X_b4)
+
+        X_b4_s1 = Conv2D(filters=256, kernel_size=(3, 1), strides=(1, 1), padding='same',
+                         kernel_initializer=random_uniform)(X_b4)  # first sub-branch
+        X_b4_s2 = Conv2D(filters=256, kernel_size=(1, 3), strides=(1, 1), padding='same',
+                         kernel_initializer=random_uniform)(X_b4)  # second sub-branch
+
+        X = Concatenate(axis=-1)([X_b1, X_b2, X_b3_s1, X_b3_s2, X_b4_s1, X_b4_s2])
+
+        return X
 
     def inception_v4(self):
         """
@@ -212,20 +278,24 @@ class InceptionV4:
         X = self.__inception_b(X=X)
         X = self.__inception_b(X=X)
 
-        # Reduction-B
+        # Reduction-B block
+        X = self.__reduction_b(X=X)
 
+        # Inception-C blocks
+        X = self.__inception_c(X=X)
+        X = self.__inception_c(X=X)
+        X = self.__inception_c(X=X)
 
-        return X
+        # Average pooling
+        X = AveragePooling2D(pool_size=(8, 8), strides=(1, 1), padding='valid')(X)
 
+        # Classifier part
+        X = Flatten()(X)
+        X = Dropout(rate=0.2)(X)
+        X_output = Dense(units=self.classes, activation='softmax', name='output',
+                         kernel_initializer=random_uniform)(X)
 
+        # Create model
+        model = Model(inputs=X_input, outputs=X_output)
 
-
-
-
-
-
-
-
-
-
-
+        return model
