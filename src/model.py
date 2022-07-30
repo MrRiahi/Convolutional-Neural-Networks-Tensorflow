@@ -1,5 +1,5 @@
 from tensorflow.keras.losses import CategoricalCrossentropy
-from tensorflow.keras.optimizers import SGD
+from tensorflow.keras.optimizers import SGD, RMSprop
 import tensorflow as tf
 
 from src.Inceptions.BN_Inception import BNInception
@@ -119,6 +119,10 @@ def get_model(classes_numbers):
         input_size = Cfg.INCEPTION_V4_INPUT_SIZE
         inception_v4_net = InceptionV4(input_shape=input_size, classes=classes_numbers)
         model = inception_v4_net.inception_v4()
+
+        # Compile model
+        optimizer = RMSprop(learning_rate=0.1, epsilon=0.1)
+        model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
     else:
         raise Exception('Invalid model type!')
