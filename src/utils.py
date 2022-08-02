@@ -10,7 +10,10 @@ class UtilityFunction:
 
     @staticmethod
     def step_decay_classification(epoch):
-        initial_lr = 0.1
+        # Set the initial learning rate 0.1 for ResNet50, MobileNetV1, MobileNetV2, BNInception,
+        # GoogLeNet, and VGG16 networks.
+        # Set the initial learning rate 0.01 for InceptionV4
+        initial_lr = 0.01
         drop = 0.95
         epochs_drop = 25
         lr = initial_lr * math.pow(drop, math.floor((1 + epoch) / epochs_drop))
