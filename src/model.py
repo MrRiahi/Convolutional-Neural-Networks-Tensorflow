@@ -185,8 +185,8 @@ def load_model(model_path):
         # Load model
         model = tf.keras.models.load_model(model_path)
 
-    elif Cfg.MODEL_TYPE == 'InceptionV3':
-        input_shape = Cfg.INCEPTION_V3_INPUT_SIZE
+    elif Cfg.MODEL_TYPE == 'InceptionV4':
+        input_shape = Cfg.INCEPTION_V4_INPUT_SIZE
 
         # Load model
         model = tf.keras.models.load_model(model_path)
