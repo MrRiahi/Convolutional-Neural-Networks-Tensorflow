@@ -1,5 +1,5 @@
 from tensorflow.keras.losses import CategoricalCrossentropy
-from tensorflow.keras.optimizers import SGD, RMSprop
+from tensorflow.keras.optimizers import SGD, RMSprop, Adam
 import tensorflow as tf
 
 from src.Inceptions.BN_Inception import BNInception
@@ -30,7 +30,9 @@ def get_model(classes_numbers):
         model = resnet50.res_net50()
 
         # Compile model
-        model.compile(loss=CategoricalCrossentropy(), optimizer='adam', metrics=['accuracy'])
+        optimizer = Adam(learning_rate=0.1)
+
+        model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
     elif Cfg.MODEL_TYPE == 'MobileNetV1':
         # Build model
@@ -39,7 +41,9 @@ def get_model(classes_numbers):
         model = mobile_net_v1.mobile_net_v1()
 
         # Compile model
-        model.compile(loss=CategoricalCrossentropy(), optimizer='adam', metrics=['accuracy'])
+        optimizer = Adam(learning_rate=0.1)
+
+        model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
     elif Cfg.MODEL_TYPE == 'MobileNetV2':
         # Build model
@@ -48,7 +52,9 @@ def get_model(classes_numbers):
         model = mobile_net_v2.mobile_net_v2()
 
         # Compile model
-        model.compile(loss=CategoricalCrossentropy(), optimizer='sgd', metrics=['accuracy'])
+        optimizer = SGD(learning_rate=0.1)
+
+        model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
     elif Cfg.MODEL_TYPE == 'GoogLeNet':
         # Build model
@@ -87,7 +93,9 @@ def get_model(classes_numbers):
         model = vgg13_net.vgg13()
 
         # Compile model
-        model.compile(loss=CategoricalCrossentropy(), optimizer='adam', metrics=['accuracy'])
+        optimizer = SGD(learning_rate=0.1, momentum=0.9)
+
+        model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
     elif Cfg.MODEL_TYPE == 'VGG11':
         # Build model
@@ -96,7 +104,9 @@ def get_model(classes_numbers):
         model = vgg11_net.vgg11()
 
         # Compile model
-        model.compile(loss=CategoricalCrossentropy(), optimizer='adam', metrics=['accuracy'])
+        optimizer = SGD(learning_rate=0.1)
+
+        model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
     elif Cfg.MODEL_TYPE == 'BNInception':
         # Build model
@@ -110,9 +120,7 @@ def get_model(classes_numbers):
         model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
     elif Cfg.MODEL_TYPE == 'InceptionV3':
-        # Build model
-        input_size = Cfg.INCEPTION_V3_INPUT_SIZE
-        inception_v3_net = InceptionV3(input_shape=input_size, classes=classes_numbers)
+        pass
 
     elif Cfg.MODEL_TYPE == 'InceptionV4':
         # Build model
@@ -121,7 +129,7 @@ def get_model(classes_numbers):
         model = inception_v4_net.inception_v4()
 
         # Compile model
-        optimizer = RMSprop(learning_rate=0.1, epsilon=0.1)
+        optimizer = RMSprop(learning_rate=0.01, epsilon=0.1)
         model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
     else:
