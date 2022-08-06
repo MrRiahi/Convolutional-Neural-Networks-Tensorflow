@@ -4,7 +4,8 @@ from src.utils import UtilityFunction as Uf
 
 
 # Define model path
-model_path = f'./models/cifar-10/{Cfg.MODEL_TYPE}'
+# model_path = f'./models/cifar-10/{Cfg.MODEL_TYPE}'
+model_path = f'{Cfg.MODEL_PATH}/best'
 
 # Load model
 model, input_shape = load_model(model_path=model_path)
