@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 import cv2
+import os
 
 from src.config import Config as Cfg
 
@@ -9,14 +10,25 @@ from src.config import Config as Cfg
 class UtilityFunction:
 
     @staticmethod
-    def step_decay_classification(epoch):
-        # Set the initial learning rate 0.1 for ResNet50, MobileNetV1, MobileNetV2, BNInception,
-        # GoogLeNet, and VGG16 networks.
-        # Set the initial learning rate 0.01 for InceptionV4
-        initial_lr = 0.01
-        drop = 0.95
-        epochs_drop = 25
-        lr = initial_lr * math.pow(drop, math.floor((1 + epoch) / epochs_drop))
+    def learning_rate_decay(epoch, lr):
+        """
+        The method use step decay for learning rate based on the epochs. If the fine_tune flag is False,
+        it uses a predefined value for learning rate. Otherwise, it starts the initial learning rate from the save
+        history file.
+        :param epoch:
+        :param lr:
+        :return:
+        """
+
+        print(f'first learning rate:: {lr}, epoch: {epoch}')
+
+        drop = 0.97
+        # epochs_drop = 25
+        epochs_drop = 1
+        # lr = initial_lr * math.pow(drop, math.floor((1 + epoch) / epochs_drop))
+        lr = lr * math.pow(drop, math.floor((1 + epoch) / epochs_drop))
+
+        print(f'new learning rate:: {lr}')
 
         return lr
 
@@ -40,6 +52,7 @@ class UtilityFunction:
         """
         Get labels of the predictions.
         :param predictions: list of predictions
+        :return:
         """
 
         labels = [Cfg.CIFAR_10_CLASS_NAMES[np.argmax(prediction)] for prediction in predictions]
@@ -53,6 +66,7 @@ class UtilityFunction:
         :param title: figure title
         :param x_label: label of x axis
         :param y_label: label of y axis
+        :return:
         """
 
         fig, ax = plt.subplots()
@@ -62,3 +76,31 @@ class UtilityFunction:
         ax.set_title(title)
 
         return fig, ax
+
+    @ staticmethod
+    def save_history(history):
+        """
+        Save the history of the trained model. This history contains the learning_rate (as lr), training loss (as loss),
+        training accuracy (as accuracy), validation loss (as val_loss), and validation accuracy (as val_accuracy).
+        If there is any previous history, the current history is appended to the end of the previous history
+        and will be saved.
+        :param history:
+        :return:
+        """
+
+        history_path = f'{Cfg.MODEL_PATH}/history.npy'
+
+        if os.path.exists(path=history_path):
+            # Append the history to the previous history.
+            previous_history = np.load(history_path, allow_pickle=True)
+            previous_history = previous_history.tolist()
+
+            new_history = {}
+            for key, prev_value in previous_history.items():
+                new_history[key] = prev_value
+                new_history[key].extend(history[key])
+
+            history = new_history
+
+        # Sve the history.
+        np.save(history_path, history)
