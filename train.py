@@ -13,7 +13,7 @@ model, input_shape = get_model(classes_numbers=Cfg.CIFAR_10_CLASS_NUMBERS)
 train_dataset, val_dataset = get_train_dataset(input_shape=input_shape)
 
 # Use ModelCheckpoint to control validation loss for saving the best model.
-best_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(filepath=f'{Cfg.MODEL_PATH}/best',
+best_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(filepath=Cfg.MODEL_PATH + '/best.val_loss_{val_loss:.2f}',
                                                               monitor='val_loss',
                                                               verbose=1,
                                                               save_best_only=True)
