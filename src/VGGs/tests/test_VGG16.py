@@ -84,7 +84,7 @@ class VGG16TestCase(unittest.TestCase):
             ['BatchNormalization', (None, 224, 224, 64), 256],
             ['Activation', (None, 224, 224, 64), 0, 'relu'],
             # Max pooling block 1
-            ['MaxPooling2D', (None, 112, 112, 64), 0, (2, 2), (2, 2), 'valid']
+            ['MaxPooling2D', (None, 112, 112, 64), 0, (2, 2), (2, 2), 'valid'],
             # Conv block 2
             ['Conv2D', (None, 112, 112, 128), 73856, (3, 3), (1, 1), 'same', 'linear'],
             ['BatchNormalization', (None, 112, 112, 128), 512],
