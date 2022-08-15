@@ -78,18 +78,18 @@ class VGG13:
 
         # In original VGG, a max pooling was used. Because of limited resources, I use average pooling with
         # 7x7 pool size.
-        # # Max pooling
-        # X = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding='valid')(X)
+        # Max pooling
+        X = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding='valid')(X)
 
-        # Average pooling
-        X = AveragePooling2D(pool_size=[7, 7])(X)
+        # # Average pooling
+        # X = AveragePooling2D(pool_size=[7, 7])(X)
 
         # FC layers
         X = Flatten()(X)
         X = Dense(units=4096, activation='relu', kernel_initializer=glorot_uniform())(X)
         X = Dropout(rate=0.5)(X)
 
-        X = Dense(units=1024, activation='relu', kernel_initializer=glorot_uniform())(X)
+        X = Dense(units=4096, activation='relu', kernel_initializer=glorot_uniform())(X)
         X = Dropout(rate=0.5)(X)
 
         X_output = Dense(units=self.classes, activation='softmax', kernel_initializer=glorot_uniform())(X)
