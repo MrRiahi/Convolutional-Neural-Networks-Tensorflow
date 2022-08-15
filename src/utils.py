@@ -20,13 +20,9 @@ class UtilityFunction:
         :return:
         """
 
-        print(f'first learning rate:: {lr}, epoch: {epoch}')
-
         drop = 0.97
         epochs_drop = 25
         lr = lr * math.pow(drop, math.floor((1 + epoch) / epochs_drop))
-
-        print(f'new learning rate:: {lr}')
 
         return lr
 
