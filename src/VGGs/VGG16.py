@@ -78,11 +78,11 @@ class VGG16:
 
         # In original VGG, a max pooling was used. Because of limited resources, I use average pooling with
         # 7x7 pool size.
-        # # Max pooling
-        # X = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding='valid')(X)
+        # Max pooling
+        X = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding='valid')(X)
 
-        # Average pooling
-        X = AveragePooling2D(pool_size=[7, 7])(X)
+        # # Average pooling
+        # X = AveragePooling2D(pool_size=[7, 7])(X)
 
         # FC layers
         X = Flatten()(X)
