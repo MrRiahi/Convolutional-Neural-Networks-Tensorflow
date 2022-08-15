@@ -1,6 +1,6 @@
-import unittest
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Activation, Dense, Dropout, AveragePooling2D
 from tensorflow.keras.optimizers import SGD
+import unittest
 
 from ..VGG11 import VGG11
 
@@ -10,7 +10,7 @@ class VGG11TestCase(unittest.TestCase):
     Test cases for VGG11 convolutional neural network.
     """
 
-    def test_VGG11(self):
+    def test_vgg11(self):
         """
         Test the VGG11 model layers.
         """
@@ -26,7 +26,7 @@ class VGG11TestCase(unittest.TestCase):
     @staticmethod
     def get_model_summary(model):
         """
-        Get the configuration of the model.
+        Get the configuration of the VGG11 model.
         :param model:
         :return:
         """
@@ -67,7 +67,7 @@ class VGG11TestCase(unittest.TestCase):
     @staticmethod
     def get_expected_model_config(n_classes):
         """
-        Get the expected model configuration.
+        Get the expected VGG11 model configuration.
         :param n_classes:
         :return:
         """
