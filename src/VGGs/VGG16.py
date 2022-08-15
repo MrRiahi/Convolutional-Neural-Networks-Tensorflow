@@ -92,8 +92,6 @@ class VGG16:
         X = Dense(units=4096, activation='relu', kernel_initializer=glorot_uniform())(X)
         X = Dropout(rate=0.5)(X)
 
-        X = Dense(units=1000, activation='relu', kernel_initializer=glorot_uniform())(X)
-
         X_output = Dense(units=self.classes, activation='softmax', kernel_initializer=glorot_uniform())(X)
 
         model = Model(inputs=X_input, outputs=X_output)
