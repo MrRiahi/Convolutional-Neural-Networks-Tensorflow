@@ -26,8 +26,9 @@ def get_model(classes_numbers):
     if Cfg.MODEL_TYPE == 'ResNet50':
         # Build model
         input_size = Cfg.RESNET50_INPUT_SIZE
+
         resnet50 = ResNet50(input_shape=input_size, classes=classes_numbers)
-        model = resnet50.res_net50()
+        model = resnet50()
 
         # Compile model
         optimizer = Adam(learning_rate=0.1)
@@ -37,8 +38,9 @@ def get_model(classes_numbers):
     elif Cfg.MODEL_TYPE == 'MobileNetV1':
         # Build model
         input_size = Cfg.MOBILENET_V1_INPUT_SIZE
-        mobile_net_v1 = MobileNetV1(input_shape=input_size, classes=classes_numbers)
-        model = mobile_net_v1.mobile_net_v1()
+
+        mobileV1_obj = MobileNetV1(input_shape=input_size, classes=classes_numbers)
+        model = mobileV1_obj()
 
         # Compile model
         optimizer = Adam(learning_rate=0.1)
@@ -48,8 +50,9 @@ def get_model(classes_numbers):
     elif Cfg.MODEL_TYPE == 'MobileNetV2':
         # Build model
         input_size = Cfg.MOBILENET_V2_INPUT_SIZE
-        mobile_net_v2 = MobileNetV2(input_shape=input_size, classes=classes_numbers)
-        model = mobile_net_v2.mobile_net_v2()
+
+        mobileV2_obj = MobileNetV2(input_shape=input_size, classes=classes_numbers)
+        model = mobileV2_obj()
 
         # Compile model
         optimizer = SGD(learning_rate=0.1)
@@ -59,8 +62,9 @@ def get_model(classes_numbers):
     elif Cfg.MODEL_TYPE == 'GoogLeNet':
         # Build model
         input_size = Cfg.GOOGLE_NET_INPUT_SIZE
-        google_net = GoogLeNet(input_shape=input_size, classes=classes_numbers)
-        model = google_net.google_net()
+
+        google_obj = GoogLeNet(input_shape=input_size, classes=classes_numbers)
+        model = google_obj()
 
         # Compile model
         losses = {'output': CategoricalCrossentropy(), 'output_aux_1': CategoricalCrossentropy(),
@@ -78,8 +82,9 @@ def get_model(classes_numbers):
     elif Cfg.MODEL_TYPE == 'VGG16':
         # Build model
         input_size = Cfg.VGG16_NET_INPUT_SIZE
-        vgg16_net = VGG16(input_shape=input_size, classes=classes_numbers)
-        model = vgg16_net.vgg16()
+
+        vgg16_obj = VGG16(input_shape=input_size, classes=classes_numbers)
+        model = vgg16_obj()
 
         # Compile model
         optimizer = SGD(learning_rate=0.1, momentum=0.9)
@@ -89,8 +94,9 @@ def get_model(classes_numbers):
     elif Cfg.MODEL_TYPE == 'VGG13':
         # Build model
         input_size = Cfg.VGG13_NET_INPUT_SIZE
-        vgg13_net = VGG13(input_shape=input_size, classes=classes_numbers)
-        model = vgg13_net.vgg13()
+
+        vgg13_obj = VGG13(input_shape=input_size, classes=classes_numbers)
+        model = vgg13_obj()
 
         # Compile model
         optimizer = SGD(learning_rate=0.1, momentum=0.9)
@@ -100,8 +106,9 @@ def get_model(classes_numbers):
     elif Cfg.MODEL_TYPE == 'VGG11':
         # Build model
         input_size = Cfg.VGG11_NET_INPUT_SIZE
-        vgg11_net = VGG11(input_shape=input_size, classes=classes_numbers)
-        model = vgg11_net.vgg11()
+
+        vgg11_obj = VGG11(input_shape=input_size, classes=classes_numbers)
+        model = vgg11_obj()
 
         # Compile model
         optimizer = SGD(learning_rate=0.1)
@@ -111,8 +118,9 @@ def get_model(classes_numbers):
     elif Cfg.MODEL_TYPE == 'BNInception':
         # Build model
         input_size = Cfg.INCEPTION_BN_INPUT_SIZE
-        inception_bn_net = BNInception(input_shape=input_size, classes=classes_numbers)
-        model = inception_bn_net.inception_bn()
+
+        inception_bn_obj = BNInception(input_shape=input_size, classes=classes_numbers)
+        model = inception_bn_obj()
 
         # Compile model
         optimizer = SGD(learning_rate=0.1, momentum=0.9)
@@ -125,8 +133,9 @@ def get_model(classes_numbers):
     elif Cfg.MODEL_TYPE == 'InceptionV4':
         # Build model
         input_size = Cfg.INCEPTION_V4_INPUT_SIZE
-        inception_v4_net = InceptionV4(input_shape=input_size, classes=classes_numbers)
-        model = inception_v4_net.inception_v4()
+
+        inception_v4_obj = InceptionV4(input_shape=input_size, classes=classes_numbers)
+        model = inception_v4_obj()
 
         # Compile model
         optimizer = RMSprop(learning_rate=0.01, epsilon=0.1)
