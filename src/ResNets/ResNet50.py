@@ -103,7 +103,7 @@ class ResNet50:
 
         return X
 
-    def res_net50(self):
+    def __call__(self):
         """
         Build the ResNe50 model
         :return: ResNet50 model

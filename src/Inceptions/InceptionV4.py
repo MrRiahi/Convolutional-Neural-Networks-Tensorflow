@@ -348,7 +348,7 @@ class InceptionV4:
 
         return X
 
-    def inception_v4(self):
+    def __call__(self):
         """
         Build the InceptionV4 network.
         """

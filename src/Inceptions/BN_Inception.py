@@ -200,7 +200,7 @@ class BNInception:
 
         return X_aux_output
 
-    def inception_bn(self):
+    def __call__(self):
         """
         Builds the google_net architecture
         :return:

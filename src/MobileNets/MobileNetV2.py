@@ -72,7 +72,7 @@ class MobileNetV2:
 
         return X
 
-    def mobile_net_v2(self):
+    def __call__(self):
         """
         Implementation of the MobileNetV2 network.
         :return:

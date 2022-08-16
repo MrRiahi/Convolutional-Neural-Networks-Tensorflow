@@ -141,7 +141,7 @@ class GoogLeNet:
 
         return X_aux_output
 
-    def google_net(self):
+    def __call__(self):
         """
         Builds the google_net architecture
         :return:

@@ -36,7 +36,7 @@ class MobileNetV1:
 
         return X
 
-    def mobile_net_v1(self):
+    def __call__(self):
         """
         Build MobileNet version 1 network
         :return:

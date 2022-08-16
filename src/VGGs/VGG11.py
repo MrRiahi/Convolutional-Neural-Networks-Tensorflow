@@ -40,7 +40,7 @@ class VGG11:
 
         return X
 
-    def vgg11(self):
+    def __call__(self):
         """
         Build the VGG11 network.
         :return: vgg11 model
