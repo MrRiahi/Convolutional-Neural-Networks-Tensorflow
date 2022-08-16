@@ -16,8 +16,8 @@ class VGG13TestCase(unittest.TestCase):
         """
 
         n_classes = 15
-        vgg13 = VGG13(input_shape=(224, 224), classes=n_classes)
-        model = vgg13.vgg13()
+        vgg13_obj = VGG13(input_shape=(224, 224), classes=n_classes)
+        model = vgg13_obj()
         real_value = self.get_model_summary(model=model)
 
         expected_value = self.get_expected_model_config(n_classes=n_classes)

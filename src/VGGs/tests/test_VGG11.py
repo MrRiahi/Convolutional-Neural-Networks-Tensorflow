@@ -15,8 +15,8 @@ class VGG11TestCase(unittest.TestCase):
         Test the VGG11 model layers.
         """
         n_classes = 15
-        vgg11 = VGG11(input_shape=(224, 224), classes=n_classes)
-        model = vgg11.vgg11()
+        vgg11_obj = VGG11(input_shape=(224, 224), classes=n_classes)
+        model = vgg11_obj()
         real_value = self.get_model_summary(model=model)
 
         expected_value = self.get_expected_model_config(n_classes=n_classes)
