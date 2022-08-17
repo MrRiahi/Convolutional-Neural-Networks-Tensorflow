@@ -66,13 +66,14 @@ python predict.py
 ## Result
 The result of models on test dataset are reported in the following table.
 
-|             |  loss_test   | acc_test |
-|-------------|:------------:|:--------:|
-| BNInception |    0.4681    |  87.50   |
-| MobileNetV2 |    0.5142    |  87.88   |
-| GoogLeNet   |    0.6244    |  81.03   |
-| ResNet50    |    0.6503    |  81.94   |
-| MobileNetV1 |    0.6547    |  82.54   |
+|             | loss_test | acc_test |
+|-------------|:---------:|:--------:|
+| InceptionV4 |  0.4403   |  88.81   |
+| BNInception |  0.4681   |  87.50   |
+| MobileNetV2 |  0.5142   |  87.88   |
+| GoogLeNet   |  0.6244   |  81.03   |
+| ResNet50    |  0.6503   |  81.94   |
+| MobileNetV1 |  0.6547   |  82.54   |
 
 
 <img src="./images/train_acc.png" width="360"/> <img src="./images/train_loss.png" width="360"/>
@@ -121,7 +122,7 @@ python infer_onnx.py
 - [ ] Implement and train VGG16
 - [x] Implement and train BN-Inception
 - [ ] Implement and train Inception-V3
-- [ ] Implement and train Inception-V4
+- [x] Implement and train Inception-V4
 - [ ] Implement and train Inception-ResNet-50
 - [ ] Implement and train Xception
 - [ ] Implement and train ResNeXt-50
