@@ -8,6 +8,7 @@ from src.MobileNets.MobileNetV2 import MobileNetV2
 from src.Inceptions.InceptionV3 import InceptionV3
 from src.Inceptions.InceptionV4 import InceptionV4
 from src.Inceptions.GoogLeNet import GoogLeNet
+from src.Xception.Xception import Xception
 from src.ResNets.ResNet50 import ResNet50
 from src.VGGs.VGG16 import VGG16
 from src.VGGs.VGG13 import VGG13
@@ -141,6 +142,17 @@ def get_model(classes_numbers):
         optimizer = RMSprop(learning_rate=0.01, epsilon=0.1)
         model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
+    elif Cfg.MODEL_TYPE == 'Xception':
+        # Build model
+        input_size = Cfg.XCEPTION_INPUT_SIZE
+
+        xception_obj = Xception(input_shape=input_size, classes=classes_numbers)
+        model = xception_obj()
+
+        # Compile model
+        optimizer = SGD(learning_rate=0.01, momentum=0.9)
+        model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
+
     else:
         raise Exception('Invalid model type!')
 
@@ -204,6 +216,12 @@ def load_model(model_path):
 
     elif Cfg.MODEL_TYPE == 'InceptionV4':
         input_shape = Cfg.INCEPTION_V4_INPUT_SIZE
+
+        # Load model
+        model = tf.keras.models.load_model(model_path)
+
+    elif Cfg.MODEL_TYPE == 'Xception':
+        input_shape = Cfg.XCEPTION_INPUT_SIZE
 
         # Load model
         model = tf.keras.models.load_model(model_path)
