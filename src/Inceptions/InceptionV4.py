@@ -1,5 +1,5 @@
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dropout, Activation, \
-    Flatten, Dense, Input, AveragePooling2D, concatenate, BatchNormalization, Concatenate
+    Flatten, Dense, Input, AveragePooling2D, BatchNormalization, Concatenate
 from tensorflow.keras.models import Model
 from tensorflow.keras.initializers import random_uniform
 
