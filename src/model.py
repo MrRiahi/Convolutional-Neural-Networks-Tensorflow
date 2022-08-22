@@ -2,6 +2,7 @@ from tensorflow.keras.losses import CategoricalCrossentropy
 from tensorflow.keras.optimizers import SGD, RMSprop, Adam
 import tensorflow as tf
 
+from src.Inception_ResNets.Inception_ResNetV1 import InceptionResNetV1
 from src.Inceptions.BN_Inception import BNInception
 from src.MobileNets.MobileNetV1 import MobileNetV1
 from src.MobileNets.MobileNetV2 import MobileNetV2
@@ -123,9 +124,10 @@ def get_model(classes_numbers):
         inception_bn_obj = BNInception(input_shape=input_size, classes=classes_numbers)
         model = inception_bn_obj()
 
-        # Compile model
+        # Optimizer
         optimizer = SGD(learning_rate=0.1, momentum=0.9)
 
+        # Compile model
         model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
     elif Cfg.MODEL_TYPE == 'InceptionV3':
@@ -140,6 +142,19 @@ def get_model(classes_numbers):
 
         # Compile model
         optimizer = RMSprop(learning_rate=0.01, epsilon=0.1)
+        model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
+
+    elif Cfg.MODEL_TYPE == 'Inception-ResNetV1':
+        # Build model
+        input_size = Cfg.INCEPTION_RESNET_V1_INPUT_SIZE
+
+        inception_resnet_v1_obj = InceptionResNetV1(input_shape=input_size, classes=classes_numbers)
+        model = inception_resnet_v1_obj()
+
+        # Optimizer
+        optimizer = RMSprop(learning_rate=0.01, epsilon=0.1)
+
+        # Compile model
         model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
     elif Cfg.MODEL_TYPE == 'Xception':
@@ -216,6 +231,12 @@ def load_model(model_path):
 
     elif Cfg.MODEL_TYPE == 'InceptionV4':
         input_shape = Cfg.INCEPTION_V4_INPUT_SIZE
+
+        # Load model
+        model = tf.keras.models.load_model(model_path)
+
+    elif Cfg.MODEL_TYPE == 'Inception-ResNetV1':
+        input_shape = Cfg.INCEPTION_RESNET_V1_INPUT_SIZE
 
         # Load model
         model = tf.keras.models.load_model(model_path)
