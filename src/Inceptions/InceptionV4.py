@@ -359,30 +359,22 @@ class InceptionV4:
         X = self.__stem(X=X_input)
 
         # Inception-A blocks
-        X = self.__inception_a(X=X)
-        X = self.__inception_a(X=X)
-        X = self.__inception_a(X=X)
-        X = self.__inception_a(X=X)
+        for i in range(4):
+            X = self.__inception_a(X=X)
 
         # Reduction-A block
         X = self.__reduction_a(X=X)
 
         # Inception-B blocks
-        X = self.__inception_b(X=X)
-        X = self.__inception_b(X=X)
-        X = self.__inception_b(X=X)
-        X = self.__inception_b(X=X)
-        X = self.__inception_b(X=X)
-        X = self.__inception_b(X=X)
-        X = self.__inception_b(X=X)
+        for i in range(7):
+            X = self.__inception_b(X=X)
 
         # Reduction-B block
         X = self.__reduction_b(X=X)
 
         # Inception-C blocks
-        X = self.__inception_c(X=X)
-        X = self.__inception_c(X=X)
-        X = self.__inception_c(X=X)
+        for i in range(3):
+            X = self.__inception_c(X=X)
 
         # Average pooling
         X = AveragePooling2D(pool_size=(8, 8), strides=(1, 1), padding='valid')(X)
