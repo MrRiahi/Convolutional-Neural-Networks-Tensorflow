@@ -9,6 +9,9 @@ This repository implements the most famous image classification CNN models from 
 * VGG13
 * BN-Inception
 * InceptionV4
+* Inception-ResNetV1
+* Inception-ResNetV2
+* Xception
 
 In the future, this repository will be updated with other convolutional neural networks.
 
@@ -123,7 +126,8 @@ python infer_onnx.py
 - [x] Implement and train BN-Inception
 - [ ] Implement and train Inception-V3
 - [x] Implement and train Inception-V4
-- [ ] Implement and train Inception-ResNet-50
+- [ ] Implement and train Inception-ResNet-V1
+- [ ] Implement and train Inception-ResNet-V2
 - [ ] Implement and train Xception
 - [ ] Implement and train ResNeXt-50
 
