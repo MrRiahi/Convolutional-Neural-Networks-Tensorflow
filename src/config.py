@@ -13,16 +13,18 @@ class Config:
     VGG13_NET_INPUT_SIZE = (224, 224)
     VGG11_NET_INPUT_SIZE = (224, 224)
     XCEPTION_INPUT_SIZE = (299, 299)
+    INCEPTION_RESNET_V1_INPUT_SIZE = (299, 299)
+    INCEPTION_RESNET_V2_INPUT_SIZE = (299, 299)
 
     # 'MobileNetV1', 'MobileNetV2', 'ResNet50', 'GoogLeNet', 'VGG16', 'VGG13', 'VGG11', 'BNInception'
-    # 'InceptionV3', 'InceptionV4', 'Xception'
-    MODEL_TYPE = 'Xception'
+    # 'InceptionV3', 'InceptionV4', 'Xception', 'Inception-ResNetV1', 'Inception-ResNetV2'
+    MODEL_TYPE = 'Inception-ResNetV1'
 
     MODEL_PATH = f'models/cifar-10/{MODEL_TYPE}'
 
     # Train config
     BUFFER_SIZE = 500
-    BATCH_SIZE = 16
+    BATCH_SIZE = 32
     # Each model trains for 300 epochs
     EPOCHS = 30
 
