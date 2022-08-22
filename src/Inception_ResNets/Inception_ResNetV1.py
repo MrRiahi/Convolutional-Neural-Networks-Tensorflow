@@ -7,6 +7,13 @@ from tensorflow.keras.models import Model
 class InceptionResNetV1:
     """
     This class is the implementation of the Inception-ResNetV1 convolutional neural network.
+    This network consist of six parts:
+        1) stem
+        2) inception_resnet_v1_A
+        3) inception_resnet_v1_B
+        4) inception_resnet_v1_C
+        5) reduction_A
+        6) reduction_B
     """
 
     def __init__(self, input_shape, classes):
@@ -132,7 +139,7 @@ class InceptionResNetV1:
         X_b3 = BatchNormalization()(X_b3)
         X_b3 = Activation('relu')(X_b3)
 
-        X_b3 = Conv2D(filters=224, kernel_size=(1, 1), strides=(1, 1), padding='same',
+        X_b3 = Conv2D(filters=192, kernel_size=(1, 1), strides=(1, 1), padding='same',
                       kernel_initializer=random_uniform)(X_b3)
         X_b3 = BatchNormalization()(X_b3)
         X_b3 = Activation('relu')(X_b3)
