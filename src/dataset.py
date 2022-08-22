@@ -253,7 +253,8 @@ def get_train_dataset(input_shape):
         train_dataset, val_dataset = get_train_dataset_with_tf_dataset()
 
     elif Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2', 'VGG16', 'VGG13',
-                            'VGG11', 'BNInception', 'InceptionV4', 'Xception']:
+                            'VGG11', 'BNInception', 'InceptionV4', 'Xception', 'Inception-ResNetV1',
+                            'Inception-ResNetV2']:
         train_dataset, val_dataset = get_train_dataset_with_image_data_gen(
             directory=f'./{Cfg.TRAIN_DATASET_PATH}',
             classes=Cfg.CIFAR_10_CLASS_NAMES,
@@ -282,7 +283,8 @@ def get_test_dataset(input_shape):
         test_dataset = get_test_dataset_with_tf_dataset()
 
     elif Cfg.MODEL_TYPE in ['ResNet50', 'MobileNetV1', 'MobileNetV2', 'VGG16', 'VGG13',
-                            'VGG11', 'BNInception', 'InceptionV4', 'Xception']:
+                            'VGG11', 'BNInception', 'InceptionV4', 'Xception', 'Inception-ResNetV1',
+                            'Inception-ResNetV2']:
         test_dataset = get_test_dataset_with_image_data_gen(
             directory=f'./{Cfg.TEST_DATASET_PATH}',
             classes=Cfg.CIFAR_10_CLASS_NAMES,
