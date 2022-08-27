@@ -127,7 +127,7 @@ python infer_onnx.py
 - [x] Implement and train BN-Inception
 - [ ] Implement and train Inception-V3
 - [x] Implement and train Inception-V4
-- [ ] Implement and train Inception-ResNet-V1
+- [x] Implement and train Inception-ResNet-V1
 - [ ] Implement and train Inception-ResNet-V2
 - [ ] Implement and train Xception
 - [ ] Implement and train ResNeXt-50
