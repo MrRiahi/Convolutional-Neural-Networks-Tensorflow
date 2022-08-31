@@ -18,7 +18,7 @@ class Config:
 
     # 'MobileNetV1', 'MobileNetV2', 'ResNet50', 'GoogLeNet', 'VGG16', 'VGG13', 'VGG11', 'BNInception'
     # 'InceptionV3', 'InceptionV4', 'Xception', 'Inception-ResNetV1', 'Inception-ResNetV2'
-    MODEL_TYPE = 'Inception-ResNetV1'
+    MODEL_TYPE = 'Inception-ResNetV2'
 
     MODEL_PATH = f'models/cifar-10/{MODEL_TYPE}'
 
@@ -26,7 +26,7 @@ class Config:
     BUFFER_SIZE = 500
     BATCH_SIZE = 32
     # Each model trains for 300 epochs
-    EPOCHS = 30
+    EPOCHS = 100
 
     TRAIN_SUBSET = 0.8
     VALIDATION_SUBSET = 1 - TRAIN_SUBSET
