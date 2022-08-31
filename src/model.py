@@ -3,6 +3,7 @@ from tensorflow.keras.optimizers import SGD, RMSprop, Adam
 import tensorflow as tf
 
 from src.Inception_ResNets.Inception_ResNetV1 import InceptionResNetV1
+from src.Inception_ResNets.Inception_ResNetV2 import InceptionResNetV2
 from src.Inceptions.BN_Inception import BNInception
 from src.MobileNets.MobileNetV1 import MobileNetV1
 from src.MobileNets.MobileNetV2 import MobileNetV2
@@ -157,6 +158,19 @@ def get_model(classes_numbers):
         # Compile model
         model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
+    elif Cfg.MODEL_TYPE == 'Inception-ResNetV2':
+        # Build model
+        input_size = Cfg.INCEPTION_RESNET_V2_INPUT_SIZE
+
+        inception_resnet_v2_obj = InceptionResNetV2(input_shape=input_size, classes=classes_numbers)
+        model = inception_resnet_v2_obj()
+
+        # Optimizer
+        optimizer = RMSprop(learning_rate=0.01, epsilon=0.1)
+
+        # Compile model
+        model.compile(loss=CategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
+
     elif Cfg.MODEL_TYPE == 'Xception':
         # Build model
         input_size = Cfg.XCEPTION_INPUT_SIZE
@@ -237,6 +251,12 @@ def load_model(model_path):
 
     elif Cfg.MODEL_TYPE == 'Inception-ResNetV1':
         input_shape = Cfg.INCEPTION_RESNET_V1_INPUT_SIZE
+
+        # Load model
+        model = tf.keras.models.load_model(model_path)
+
+    elif Cfg.MODEL_TYPE == 'Inception-ResNetV2':
+        input_shape = Cfg.INCEPTION_RESNET_V2_INPUT_SIZE
 
         # Load model
         model = tf.keras.models.load_model(model_path)
