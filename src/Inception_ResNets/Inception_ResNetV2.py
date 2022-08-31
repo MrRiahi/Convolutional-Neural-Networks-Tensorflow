@@ -221,7 +221,7 @@ class InceptionResNetV2:
         X_concat = Concatenate(axis=-1)([X_b1, X_b2])
 
         # linear conv layer
-        X_shortcut = Conv2D(filters=1154, kernel_size=(1, 1), strides=(1, 1), padding='same',
+        X_shortcut = Conv2D(filters=1152, kernel_size=(1, 1), strides=(1, 1), padding='same',
                             kernel_initializer=random_uniform)(X_concat)
         X_shortcut = BatchNormalization()(X_shortcut)
 
