@@ -18,7 +18,7 @@ class Config:
 
     # 'MobileNetV1', 'MobileNetV2', 'ResNet50', 'GoogLeNet', 'VGG16', 'VGG13', 'VGG11', 'BNInception'
     # 'InceptionV3', 'InceptionV4', 'Xception', 'Inception-ResNetV1', 'Inception-ResNetV2'
-    MODEL_TYPE = 'Inception-ResNetV2'
+    MODEL_TYPE = 'MobileNetV1'
 
     MODEL_PATH = f'models/cifar-10/{MODEL_TYPE}'
 
